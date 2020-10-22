@@ -16,7 +16,7 @@ const Games = () => {
 	return (
 		<Wrapper>
 			<GamesWrap>
-				<p>Test</p>
+				<p><a href="http://localhost:8000/auth/steam">Login</a></p>
 			</GamesWrap>
 		</Wrapper>
 	);

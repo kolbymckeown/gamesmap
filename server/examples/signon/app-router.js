@@ -7,7 +7,8 @@ var express = require('express')
   , util = require('util')
   , session = require('express-session')
   , SteamStrategy = require('../../').Strategy
-  , authRoutes = require('./routes/auth');
+  , authRoutes = require('./routes/auth')
+  , cors = require('cors');
   require('dotenv').config()
   const API_KEY = process.env.STEAM_API_KEY
 
@@ -31,8 +32,8 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    returnURL: 'http://localhost:3000/auth/steam/return',
-    realm: 'http://localhost:3000/',
+    returnURL: 'http://localhost:8000/auth/steam/return',
+    realm: 'http://localhost:8000/',
     apiKey: `${API_KEY}`
   },
   function(identifier, profile, done) {
@@ -43,6 +44,7 @@ passport.use(new SteamStrategy({
       // represent the logged-in user.  In a typical application, you would want
       // to associate the Steam account with a user record in your database,
       // and return that user instead.
+
       profile.identifier = identifier;
       return done(null, profile);
     });
@@ -65,14 +67,22 @@ app.use(session({
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + '/../../public'));
-
+// app.use(express.static(__dirname + '/../../public'));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
 app.get('/', function(req, res){
   res.render('index', { user: req.user });
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
+  // res.render('account', { user: req.user });
+  console.log(req.user);
+  res.status(200).json({user: req.user})
 });
 
 app.get('/logout', function(req, res){
@@ -80,10 +90,12 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+
+
 // See views/auth.js for authentication routes
 app.use('/auth', authRoutes);
 
-app.listen(3000);
+app.listen(8000);
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If

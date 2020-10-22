@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import { ThemeProvider } from "styled-components";
 import {
@@ -14,6 +14,25 @@ import Games from './components/Games'
 
 function App() {
 	const [theme, setTheme] = useState("light");
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    fetch("http://localhost:8000/account", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then(resp => resp.json())
+      .then(json => {
+      setUser(json.user);
+    })
+  }, [setUser]);
+
+  console.log(user);
 
   return (
     <Router>

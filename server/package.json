@@ -5,7 +5,9 @@
   "main": "./lib/passport-steam",
   "dependencies": {
     "@passport-next/passport-openid": "^1.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6",
     "steam-web": "0.4.0"
   },
   "devDependencies": {
@@ -17,6 +19,7 @@
   },
   "scripts": {
     "example": "node examples/signon/app.js",
+    "dev": "nodemon examples/signon/app-router.js",
     "start": "node examples/signon/app-router.js"
   },
   "engines": {

@@ -20,13 +20,18 @@ router.get('/steam',
 //   which, in this example, will redirect the user to the home page.
 router.get('/steam/return',
   // Issue #37 - Workaround for Express router module stripping the full url, causing assertion to fail 
-  function(req, res, next) {
-      req.url = req.originalUrl;
-      next();
-  }, 
-  passport.authenticate('steam', { failureRedirect: '/' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+  // function(req, res, next) {
+  //     req.url = req.originalUrl;
+  //     next();
+  // }, 
+  passport.authenticate('steam', { failureRedirect: '/', successRedirect: "http://localhost:3000" }),
+  // function(req, res) {
+  //   res.redirect('/');
+  // }
+  );
+
+router.get('/steam/success', (req, res) => {
+  res.json({status: 'testing', user: req.user});
+})
 
 module.exports = router;
