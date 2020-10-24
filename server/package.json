@@ -7,6 +7,7 @@
     "@passport-next/passport-openid": "^1.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.6",
     "steam-web": "0.4.0"
   },
@@ -19,8 +20,8 @@
   },
   "scripts": {
     "example": "node examples/signon/app.js",
-    "dev": "nodemon examples/signon/app-router.js",
-    "start": "node examples/signon/app-router.js"
+    "dev": "set NODE_ENV=development && nodemon examples/signon/app-router.js",
+    "start": "set NODE_ENV=production && nodemon examples/signon/app-router.js"
   },
   "engines": {
     "node": ">= 0.4.0"

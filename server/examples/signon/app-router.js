@@ -10,7 +10,14 @@ var express = require('express')
   , authRoutes = require('./routes/auth')
   , cors = require('cors');
   require('dotenv').config()
+  const { PORT } = require('./keys.js')
+console.log(PORT)
   const API_KEY = process.env.STEAM_API_KEY
+  const CLIENT_DEV_URL = process.env.CLIENT_DEV_URL
+  const SERVER_DEV_URL = process.env.SERVER_DEV_URL
+  const fetch = require('node-fetch');
+  console.log(process.env.STEAM_API_KEY)
+
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -32,8 +39,8 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an OpenID identifier and profile), and invoke a
 //   callback with a user object.
 passport.use(new SteamStrategy({
-    returnURL: 'http://localhost:8000/auth/steam/return',
-    realm: 'http://localhost:8000/',
+    returnURL: `${SERVER_DEV_URL}/auth/steam/return`,
+    realm: `${SERVER_DEV_URL}/`,
     apiKey: `${API_KEY}`
   },
   function(identifier, profile, done) {
@@ -70,7 +77,7 @@ app.use(passport.session());
 // app.use(express.static(__dirname + '/../../public'));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: `${CLIENT_DEV_URL}`,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -82,13 +89,29 @@ app.get('/', function(req, res){
 app.get('/account', ensureAuthenticated, function(req, res){
   // res.render('account', { user: req.user });
   console.log(req.user);
-  res.status(200).json({user: req.user})
+  // res.status(200).json({user: req.user})
+  fetch(
+    `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${API_KEY}&steamid=${req.user._json.steamid}&format=json`
+    , {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+      })
+    .then((steamRes) => steamRes.json())
+    .then((body) => res.status(200).json({ body: body.response, user: req.user }));
 });
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect(`${CLIENT_DEV_URL}/`);
 });
+
+
+
 
 
 
