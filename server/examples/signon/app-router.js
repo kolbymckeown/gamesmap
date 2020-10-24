@@ -10,13 +10,13 @@ var express = require('express')
   , authRoutes = require('./routes/auth')
   , cors = require('cors');
   require('dotenv').config()
-  const { PORT } = require('./keys.js')
-console.log(PORT)
+  // const { PORT } = require('./keys.js')
+// console.log(PORT)
   const API_KEY = process.env.STEAM_API_KEY
   const CLIENT_DEV_URL = process.env.CLIENT_DEV_URL
   const SERVER_DEV_URL = process.env.SERVER_DEV_URL
   const fetch = require('node-fetch');
-  console.log(process.env.STEAM_API_KEY)
+  // console.log(process.env.STEAM_API_KEY)
 
 
 // Passport session setup.
@@ -90,8 +90,8 @@ app.get('/account', ensureAuthenticated, function(req, res){
   // res.render('account', { user: req.user });
   console.log(req.user);
   // res.status(200).json({user: req.user})
-  fetch(
-    `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${API_KEY}&steamid=${req.user._json.steamid}&format=json`
+  fetch( // gets the list of games owned with info by the User
+    `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${API_KEY}&steamid=${req.user._json.steamid}&format=json&include_appinfo=1`
     , {
       method: "GET",
       credentials: "include",

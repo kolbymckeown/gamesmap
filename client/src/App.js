@@ -18,6 +18,7 @@ const API_URL = process.env.REACT_APP_API_URL
 function App() {
 	const [theme, setTheme] = useState("light");
   const [user, setUser] = useState({});
+  const [userGames, setUserGames] = useState({});
 
   useEffect(() => {
     fetch(`${API_URL}/account`, {
@@ -31,12 +32,14 @@ function App() {
     })
       .then(resp => resp.json())
       .then(json => {
-        console.log(json.body) // Game List
+        // console.log(json.body) // Game List
       setUser(json.user);
+      setUserGames(json.body)
     })
   }, [setUser]);
 
   console.log(user);
+  console.log(userGames)
 
   return (
     <Router>
@@ -48,7 +51,7 @@ function App() {
           <Homepage user={user} />
         </Route>
         <Route path="/games">
-          <Games user={user} />
+          <Games user={user} userGames={userGames} />
         </Route>
       </Switch>
 			</ThemeProvider>
