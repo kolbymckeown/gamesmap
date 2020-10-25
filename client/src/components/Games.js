@@ -6,6 +6,8 @@ import styled from "styled-components";
 // const userGames = localStorage.getItem('Games')
 
 const Games = ({ user, userGames }) => {
+	const [showTimePlayed, setShowTimePlayed] = React.useState(false)
+	const openTimePlayed = () => setShowTimePlayed(true)
 	console.log(userGames)
 	return (
 		<Wrapper>
@@ -17,6 +19,7 @@ const Games = ({ user, userGames }) => {
 					<IndividualGame>
 						<IndividualP>{games.name}</IndividualP>
 						<IndividualImg src={`http://media.steampowered.com/steamcommunity/public/images/apps/${games.appid}/${games.img_logo_url}.jpg`} alt="Individual Game Icon" />
+						{ showTimePlayed ? <p>{(games.playtime_forever / 60).toFixed(2)} Hours Played</p> : null }
 					</IndividualGame>
 					)
 				})}
@@ -25,6 +28,8 @@ const Games = ({ user, userGames }) => {
 				img_logo_url
 				name
 				playtime_forever */}
+				<button onClick={openTimePlayed}>Show Time Played</button>
+
 			</GamesWrap>
 		</Wrapper>
 	);
