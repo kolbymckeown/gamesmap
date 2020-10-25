@@ -16,7 +16,7 @@ const Header = ({ theme, setTheme, user }) => {
 				{console.log(user)}
 				<Nav>
 					<NavLink to="/">Home</NavLink>
-					<NavLink to="/games">Games</NavLink>
+					{/* <NavLink to="/games">Games</NavLink> */}
 					<A href={API_URL + '/auth/steam'}>Login</A>
 					<Button onClick={themeToggler}>
 						{theme === "light" ? "Dark" : "Light"}
@@ -69,6 +69,9 @@ const NavLink = styled(Link)`
 	&:hover {
 		color: ${COLORS.REGULAR.TEAL};
 	}
+	&:visited {
+		color: ${({ theme }) => theme.text}
+	}
 `;
 
 const A = styled.a`
@@ -76,6 +79,9 @@ const A = styled.a`
 	display: flex;
 	align-items: center;
 	margin: 15px;
+	&:visited {
+		color: ${({ theme }) => theme.text}
+	}
 `
 
 const Button = styled.button`

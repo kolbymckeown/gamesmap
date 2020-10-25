@@ -3,17 +3,21 @@ import styled from "styled-components";
 
 // const API_KEY = process.env.REACT_APP_API_KEY;
 
+// const userGames = localStorage.getItem('Games')
+
 const Games = ({ user, userGames }) => {
-	
+	console.log(userGames)
 	return (
 		<Wrapper>
+				<Title>All Owned Games</Title>
+
 			<GamesWrap>
 				{userGames.games.map((games) => {
 					return (
-						<>
-					<p>{games.name}</p>
-					<img src={`http://media.steampowered.com/steamcommunity/public/images/apps/${games.appid}/${games.img_logo_url}.jpg`} />
-					</>
+					<IndividualGame>
+						<IndividualP>{games.name}</IndividualP>
+						<IndividualImg src={`http://media.steampowered.com/steamcommunity/public/images/apps/${games.appid}/${games.img_logo_url}.jpg`} alt="Individual Game Icon" />
+					</IndividualGame>
 					)
 				})}
 				{/* TODO: Things to render for each game:
@@ -30,7 +34,29 @@ export default Games;
 
 const Wrapper = styled.div``;
 
+const Title = styled.h1`
+	margin-left: 45px;
+	margin-bottom: unset;
+`;
+
 const GamesWrap = styled.div`
 	display: flex;
 	flex-wrap: wrap;
+`;
+
+const IndividualGame = styled.div`
+	display: flex;
+	flex-direction: column;
+	max-width: 250px;
+	max-height: 250px;
+	justify-content: space-between;
+	margin-left: 8px;
+	/* border: 1px solid grey; */
+`;
+
+const IndividualP = styled.p`
+	margin-bottom: 18px;
+`;
+
+const IndividualImg = styled.img`
 `;

@@ -35,8 +35,11 @@ function App() {
         // console.log(json.body) // Game List
       setUser(json.user);
       setUserGames(json.body)
+      // localStorage.setItem('Games', userGames.games)
+
     })
   }, [setUser]);
+
 
   console.log(user);
   console.log(userGames)
