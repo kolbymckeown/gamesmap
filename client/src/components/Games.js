@@ -7,8 +7,20 @@ import styled from "styled-components";
 
 const Games = ({ user, userGames }) => {
 	const [showTimePlayed, setShowTimePlayed] = React.useState(false)
-	const openTimePlayed = () => setShowTimePlayed(true)
+	// const openTimePlayed = () => setShowTimePlayed(true)
+	const openTimePlayed = () => {
+		showTimePlayed === false ? setShowTimePlayed(true) : setShowTimePlayed(false)
+	}
 	console.log(userGames)
+
+	if (!userGames.games) {
+		return (
+			<>
+			<p>test</p>
+			</>
+		)
+	}
+
 	return (
 		<Wrapper>
 				<Title>All Owned Games</Title>
@@ -28,7 +40,10 @@ const Games = ({ user, userGames }) => {
 				img_logo_url
 				name
 				playtime_forever */}
-				<button onClick={openTimePlayed}>Show Time Played</button>
+				<Button onClick={openTimePlayed}>
+
+					{showTimePlayed === false ? 'Show Time Played' : 'HideHide'}
+				</Button>
 
 			</GamesWrap>
 		</Wrapper>
@@ -65,3 +80,5 @@ const IndividualP = styled.p`
 
 const IndividualImg = styled.img`
 `;
+
+const Button = styled.button``;
