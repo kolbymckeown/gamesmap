@@ -9,6 +9,8 @@
 .env
 .env.development
 .env.production
+.env*
+*.env
 
 # testing
 /coverage
