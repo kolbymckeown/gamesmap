@@ -1,2 +1,4 @@
-// match 'type': 'EXAMPLE_ACTION' to reducer 'case': 'EXAMPLE_ACTION'
-// ADD_NOTE , DELETE_NOTE , etc... 
+export const addGames = games => ({
+    type: 'ADD_GAMES',
+    games,
+})

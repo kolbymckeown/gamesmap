@@ -54,7 +54,7 @@ function App() {
           <Homepage user={user} />
         </Route>
         <Route path="/games">
-          <Games user={user} userGames={userGames} />
+          <Games user={user} userGames={userGames.games} />
         </Route>
       </Switch>
 			</ThemeProvider>

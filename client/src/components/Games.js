@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Modal from './Modal'
+import { useDispatch } from 'react-redux'
+import { addGames } from '../actions'
 
 // const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -13,7 +15,8 @@ import Modal from './Modal'
   const [modal, setModal] = React.useState(false);
   // const openTimePlayed = () => setShowTimePlayed(true)
   const [individualGame, setIndividualGame] = React.useState({})
-
+  const dispatch = useDispatch()
+  
   const openTimePlayed = () => {
     showTimePlayed === false
       ? setShowTimePlayed(true)
@@ -28,7 +31,7 @@ import Modal from './Modal'
 
   console.log(userGames);
 
-  if (!userGames.games) {
+  if (!userGames) {
     return (
       <Load>
         <Loader
@@ -50,10 +53,11 @@ import Modal from './Modal'
         </Button>
       </TitleWrap>
       <GamesWrap>
-        {userGames.games.map((games) => {
+        {userGames.map((games) => {
           return (
-            <IndividualGame onClick={openModal}>
-            <IndividualP >{games.name}</IndividualP>
+            <IndividualGame onClick={openModal} key={games.name}>
+              {/* TODO: Redux State Management - right now all games being set  */}
+            <IndividualP onClick={() => dispatch(addGames({ userGames }))}>{games.name}</IndividualP>
             {console.log(games)}
               <IndividualImg
                 src={`http://media.steampowered.com/steamcommunity/public/images/apps/${games.appid}/${games.img_logo_url}.jpg`}
@@ -71,7 +75,7 @@ import Modal from './Modal'
         })}
       </GamesWrap>
       <ModalWrap>
-      {modal ? <Modal userGames={userGames.games} /> : null}
+      {modal ? <Modal userGames={userGames} /> : null}
       {/* TODO: Pass whichever clicked on game data to the modal */}
       </ModalWrap>
     </Wrapper>
@@ -115,12 +119,12 @@ const Button = styled.button`
   }
 `;
 
-const GamesWrap = styled.div`
+const GamesWrap = styled.ul`
   display: flex;
   flex-wrap: wrap;
 `;
 
-const IndividualGame = styled.div`
+const IndividualGame = styled.li`
   display: flex;
   flex-direction: column;
   max-width: 175px;
