@@ -8,8 +8,7 @@
 .pnp.js
 .env
 .env.development
-keys.dev.js
-keys.prod.js
+.env.production
 
 # testing
 /coverage

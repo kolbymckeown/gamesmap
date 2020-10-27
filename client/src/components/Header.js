@@ -80,6 +80,7 @@ const A = styled.a`
 	display: flex;
 	align-items: center;
 	margin: 15px;
+	color: ${({ theme }) => theme.text};
 	&:visited {
 		color: ${({ theme }) => theme.text}
 	}

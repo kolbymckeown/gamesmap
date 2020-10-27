@@ -13,11 +13,12 @@ export default Modal;
 
 const Wrapper = styled.div`
     border: 1px solid red;
-    height: 650px;
+    height: 450px;
     width: 350px;
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: red;
 `;
 

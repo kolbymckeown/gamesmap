@@ -12,6 +12,8 @@ import Modal from './Modal'
   const [showTimePlayed, setShowTimePlayed] = React.useState(false);
   const [modal, setModal] = React.useState(false);
   // const openTimePlayed = () => setShowTimePlayed(true)
+  const [individualGame, setIndividualGame] = React.useState({})
+
   const openTimePlayed = () => {
     showTimePlayed === false
       ? setShowTimePlayed(true)
@@ -40,7 +42,7 @@ import Modal from './Modal'
   }
 
   return (
-    <Wrapper style={{background: modal ? 'blue' : 'unset'}}>
+    <Wrapper>
       <TitleWrap>
         <Title>All Owned Games</Title>
         <Button onClick={openTimePlayed}>
@@ -50,8 +52,9 @@ import Modal from './Modal'
       <GamesWrap>
         {userGames.games.map((games) => {
           return (
-            <IndividualGame>
-            <IndividualP>{games.name}</IndividualP>
+            <IndividualGame onClick={openModal}>
+            <IndividualP >{games.name}</IndividualP>
+            {console.log(games)}
               <IndividualImg
                 src={`http://media.steampowered.com/steamcommunity/public/images/apps/${games.appid}/${games.img_logo_url}.jpg`}
                 alt="Individual Game Icon"
@@ -61,13 +64,16 @@ import Modal from './Modal'
                   {(games.playtime_forever / 60).toFixed(2)} Hours Played
                 </Time>
               ) : null}
-              <button  onClick={openModal}>Click Me</button>
+              
               {console.log(modal)}
             </IndividualGame>
           );
         })}
       </GamesWrap>
+      <ModalWrap>
       {modal ? <Modal userGames={userGames.games} /> : null}
+      {/* TODO: Pass whichever clicked on game data to the modal */}
+      </ModalWrap>
     </Wrapper>
   );    
 };
@@ -80,7 +86,8 @@ const Load = styled.div`
   left: 50%;
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+`;
 
 const TitleWrap = styled.div`
   display: flex;
@@ -137,5 +144,12 @@ const Time = styled.p`
   font-style: italic;
   font-size: 0.9rem;
   left: 10%;
+`;
+
+const ModalWrap = styled.div`
+  margin: auto;
+  position: absolute;
+  top: 10%;
+  left: 40%;
 `;
 
