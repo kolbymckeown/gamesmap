@@ -10,6 +10,7 @@ var express = require('express')
   , authRoutes = require('./routes/auth')
   , cors = require('cors');
   require('dotenv').config()
+  console.log(process.env.PORT, process.env.NODE_ENV)
   // const { PORT } = require('./keys.js')
 // console.log(PORT)
   const API_KEY = process.env.STEAM_API_KEY

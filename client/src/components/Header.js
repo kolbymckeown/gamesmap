@@ -15,11 +15,11 @@ const Header = ({ theme, setTheme, user }) => {
 			<Wrapper>
 				{console.log(user)}
 				<Nav>
-					<NavLink to="/">Home</NavLink>
+					<NavLink to="/">HOME</NavLink>
 					{/* <NavLink to="/games">Games</NavLink> */}
-					<A href={API_URL + '/auth/steam'}>Login</A>
+					<A href={API_URL + '/auth/steam'}>LOGIN</A>
 					<Button onClick={themeToggler}>
-						{theme === "light" ? "Dark" : "Light"}
+						{theme === "light" ? "DARK" : "LIGHT"}
 					</Button>
 				</Nav>
 			</Wrapper>
@@ -30,11 +30,11 @@ const Header = ({ theme, setTheme, user }) => {
 		<Wrapper>
 			{console.log(user)}
 			<Nav>
-				<NavLink to="/">Home</NavLink>
-				<NavLink to="/games">Games</NavLink>
-				<A href={API_URL + '/logout'}>Logout</A>
+				<NavLink to="/">HOME</NavLink>
+				<NavLink to="/games">GAMES</NavLink>
+				<A href={API_URL + '/logout'}>LOGOUT</A>
 				<Button onClick={themeToggler}>
-					{theme === "light" ? "Dark" : "Light"}
+					{theme === "light" ? "DARK" : "LIGHT"}
 				</Button>
 			</Nav>
 		</Wrapper>
@@ -51,6 +51,7 @@ const Wrapper = styled.div`
 	background: ${({ theme }) => theme.body};
 	color: ${({ theme }) => theme.text};
 	transition: all 0.5s linear;
+	letter-spacing: 2px;
 `;
 
 const Nav = styled.nav`
@@ -89,4 +90,9 @@ const Button = styled.button`
 	top: 15px;
 	right: 15px;
 	font-size: 15px;
+	border: none;
+	background: none;
+	color: ${({ theme }) => theme.text};
+	letter-spacing: 3px;
+	outline: none;
 `;
