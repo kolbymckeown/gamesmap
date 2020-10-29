@@ -13,7 +13,6 @@ const Header = ({ theme, setTheme, user }) => {
 	if (!user.displayName) {
 		return (
 			<Wrapper>
-				{console.log(user)}
 				<Nav>
 					<NavLink to="/">HOME</NavLink>
 					{/* <NavLink to="/games">Games</NavLink> */}
@@ -28,7 +27,7 @@ const Header = ({ theme, setTheme, user }) => {
 
 	return (
 		<Wrapper>
-			{console.log(user)}
+			
 			<Nav>
 				<NavLink to="/">HOME</NavLink>
 				<NavLink to="/games">GAMES</NavLink>

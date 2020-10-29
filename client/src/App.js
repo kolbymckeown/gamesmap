@@ -40,10 +40,6 @@ function App() {
     })
   }, [setUser]);
 
-
-  console.log(user);
-  console.log(userGames)
-
   return (
     <Router>
 			<ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

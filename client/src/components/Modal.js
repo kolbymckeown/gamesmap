@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Modal = ({ userGames }) => {
+const Modal = ({ game }) => {
     return (
         <Wrapper>
-            {console.log(userGames, 'Modal')}
+            {console.log(game, 'Modal')}
         </Wrapper>
     )
 }
@@ -15,7 +15,6 @@ const Wrapper = styled.div`
     border: 1px solid red;
     height: 450px;
     width: 350px;
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;

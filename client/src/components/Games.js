@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Modal from './Modal'
-import { useDispatch } from 'react-redux'
-import { addGames } from '../actions'
+// import Modal from './Modal'
+// import { useDispatch } from 'react-redux'
+// import { addGames } from '../actions'
+import GamesRender from './GamesRender'
 
 // const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -12,25 +13,14 @@ import { addGames } from '../actions'
 
   const Games = ({ user, userGames }) => {
   const [showTimePlayed, setShowTimePlayed] = React.useState(false);
-  const [modal, setModal] = React.useState(false);
+  // const [show, setShow] = React.useState(false);
   // const openTimePlayed = () => setShowTimePlayed(true)
-  const [individualGame, setIndividualGame] = React.useState({})
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   
   const openTimePlayed = () => {
-    showTimePlayed === false
-      ? setShowTimePlayed(true)
-      : setShowTimePlayed(false);
+    setShowTimePlayed(!showTimePlayed)
   };
-
-  const openModal = () => {
-    modal === false 
-    ? setModal(true)
-    : setModal(false)
-  }
-
-  console.log(userGames);
-
+  // console.log(userGames);
   if (!userGames) {
     return (
       <Load>
@@ -49,35 +39,18 @@ import { addGames } from '../actions'
       <TitleWrap>
         <Title>All Owned Games</Title>
         <Button onClick={openTimePlayed}>
-          {showTimePlayed === false ? "Show Time Played" : "Hide The Shame"}
+          {showTimePlayed ? "Hide The Shame" : "Show Time Played"}
         </Button>
       </TitleWrap>
       <GamesWrap>
-        {userGames.map((games) => {
+        {userGames.map(game => {
           return (
-            <IndividualGame onClick={openModal} key={games.name}>
-              {/* TODO: Redux State Management - right now all games being set  */}
-            <IndividualP onClick={() => dispatch(addGames({ userGames }))}>{games.name}</IndividualP>
-            {console.log(games)}
-              <IndividualImg
-                src={`http://media.steampowered.com/steamcommunity/public/images/apps/${games.appid}/${games.img_logo_url}.jpg`}
-                alt="Individual Game Icon"
-              />
-              {showTimePlayed ? (
-                <Time>
-                  {(games.playtime_forever / 60).toFixed(2)} Hours Played
-                </Time>
-              ) : null}
-              
-              {console.log(modal)}
-            </IndividualGame>
-          );
+            <GamesRender game={game} showTimePlayed={showTimePlayed} key={game.name}/>
+
+          )
         })}
       </GamesWrap>
-      <ModalWrap>
-      {modal ? <Modal userGames={userGames} /> : null}
-      {/* TODO: Pass whichever clicked on game data to the modal */}
-      </ModalWrap>
+      
     </Wrapper>
   );    
 };
@@ -124,36 +97,30 @@ const GamesWrap = styled.ul`
   flex-wrap: wrap;
 `;
 
-const IndividualGame = styled.li`
-  display: flex;
-  flex-direction: column;
-  max-width: 175px;
-  max-height: 250px;
-  justify-content: space-between;
-  margin-left: 8px;
-  /* border: 1px solid grey; */
-  position: relative;
-  padding-bottom: 50px;
-`;
+// const IndividualGame = styled.li`
+//   display: flex;
+//   flex-direction: column;
+//   max-width: 175px;
+//   max-height: 250px;
+//   justify-content: space-between;
+//   margin-left: 8px;
+//   /* border: 1px solid grey; */
+//   position: relative;
+//   padding-bottom: 50px;
+// `;
 
-const IndividualP = styled.p`
-  margin-bottom: 18px;
-`;
+// const IndividualP = styled.p`
+//   margin-bottom: 18px;
+// `;
 
-const IndividualImg = styled.img``;
+// const IndividualImg = styled.img``;
 
-const Time = styled.p`
-  position: absolute;
-  bottom: 0;
-  font-style: italic;
-  font-size: 0.9rem;
-  left: 10%;
-`;
+// const Time = styled.p`
+//   position: absolute;
+//   bottom: 0;
+//   font-style: italic;
+//   font-size: 0.9rem;
+//   left: 10%;
+// `;
 
-const ModalWrap = styled.div`
-  margin: auto;
-  position: absolute;
-  top: 10%;
-  left: 40%;
-`;
 
