@@ -16,6 +16,11 @@ import GamesRender from './GamesRender'
   // const [show, setShow] = React.useState(false);
   // const openTimePlayed = () => setShowTimePlayed(true)
   // const dispatch = useDispatch()
+
+  const openModal = () => {
+    setShow(!show)
+  }
+  const [show, setShow] = React.useState(false);
   
   const openTimePlayed = () => {
     setShowTimePlayed(!showTimePlayed)
@@ -45,7 +50,7 @@ import GamesRender from './GamesRender'
       <GamesWrap>
         {userGames.map(game => {
           return (
-            <GamesRender game={game} showTimePlayed={showTimePlayed} key={game.name}/>
+            <GamesRender open={openModal} game={game} showTimePlayed={showTimePlayed} key={game.name}/>
 
           )
         })}

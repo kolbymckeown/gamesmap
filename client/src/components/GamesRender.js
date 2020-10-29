@@ -28,7 +28,7 @@ const GamesRender = ( {game, showTimePlayed} ) => {
         
           <IndividualImg
             src={`http://media.steampowered.com/steamcommunity/public/images/apps/${appid}/${img_logo_url}.jpg`}
-            alt="Individual Game Icon"
+            alt={`${name} Logo`}
           />
           {showTimePlayed  && 
             <Time>
@@ -39,7 +39,7 @@ const GamesRender = ( {game, showTimePlayed} ) => {
           
         </IndividualGame>
         <ModalWrap>
-        {show && <Modal game={game} /> } 
+        {show && <Modal open={openModal} game={game} /> } 
         
         </ModalWrap>
         </>
@@ -65,10 +65,11 @@ const IndividualP = styled.p`
 `;
 
 const ModalWrap = styled.div`
-  margin: auto;
-  position: absolute;
-  top: 20%;
-  left: 40%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
   z-index: 1000;
 `;
 
