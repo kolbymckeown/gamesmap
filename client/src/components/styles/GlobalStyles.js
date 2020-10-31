@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    height: 100vh;
+  }
   body {
     margin: 0;
     padding: 0;

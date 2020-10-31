@@ -12,6 +12,7 @@ import { lightTheme, darkTheme } from "./Themes";
 import Header from './components/Header'
 import Games from './components/Games'
 import Homepage from './components/Homepage'
+import Game from './components/Game'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -51,6 +52,9 @@ function App() {
         </Route>
         <Route path="/games">
           <Games user={user} userGames={userGames.games} />
+        </Route>
+        <Route path="/game/:name/:id">
+          <Game user={user} userGames={userGames.games} />
         </Route>
       </Switch>
 			</ThemeProvider>

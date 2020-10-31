@@ -8,7 +8,17 @@ const API_URL = process.env.REACT_APP_API_URL
 const Header = ({ theme, setTheme, user }) => {
 	const themeToggler = () => {
 		theme === "light" ? setTheme("dark") : setTheme("light");
+		localStorage.setItem('theme', theme)
 	};
+
+	React.useEffect(() => {
+		const toggler = localStorage.getItem('theme')
+		if (toggler === 'dark') {
+			setTheme('light')
+		} else {
+			setTheme('dark')
+		}
+	})
 
 	if (!user.displayName) {
 		return (
