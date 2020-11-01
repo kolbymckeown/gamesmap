@@ -34,4 +34,5 @@ router.get('/steam/success', (req, res) => {
   res.json({status: 'testing', user: req.user});
 })
 
+
 module.exports = router;

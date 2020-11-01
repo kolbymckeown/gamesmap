@@ -106,15 +106,31 @@ app.get('/account', ensureAuthenticated, function(req, res){
     .then((body) => res.status(200).json({ body: body.response, user: req.user }));
 });
 
+
+app.get('/game/:name/:id', function(req, res) {
+  
+  const { name, id } = req.params
+  console.log(name, id)
+  fetch(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${id}`
+  , {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": true,
+    },
+    })
+    .then((res) => res.json())
+    // .then(json => console.log(json.appnews.newsitems))
+    .then((json) => res.status(200).json({ body: json.appnews.newsitems }))
+}) 
+
+
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect(`${CLIENT_DEV_URL}/`);
 });
-
-
-
-
-
 
 // See views/auth.js for authentication routes
 app.use('/auth', authRoutes);
