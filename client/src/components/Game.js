@@ -2,6 +2,7 @@ import React, { useEffect, useState  } from 'react'
 import {
     useParams
 } from "react-router-dom";
+import styled from 'styled-components'
 
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -11,6 +12,14 @@ const API_URL = process.env.REACT_APP_API_URL
 const Game = ({ user, userGames }) => {
     let  { name, id }  = useParams();
     const [news, setNews] = useState([])
+    const [show, setShow] = useState(false)
+
+    const toggleShow = (appid) => {
+        setShow(prevShow => ({
+            ...prevShow,
+            [appid]: !prevShow[appid]
+        }))
+    }
 
     useEffect(() => {
         fetch(`${API_URL}/game/${name}/${id}`, {
@@ -44,11 +53,14 @@ const Game = ({ user, userGames }) => {
                         <p>
                             {piece.title}
                         </p>
-                        <p>
+                        <a href={piece.url}>
                             {piece.url}
                             {/* TODO: Render contents with their proper tags */}
-                        </p>
-                        
+                        </a>
+                        <button onClick={() => toggleShow(piece.appid)}>Show News</button>
+                        <FrameCont  key={piece.appid} style={{ display: show ? 'flex' : 'none' }}>
+                        <IFrame src={piece.url} name="myIframe"></IFrame>
+                        </FrameCont>
                     </div>
                 )
             })}
@@ -57,3 +69,16 @@ const Game = ({ user, userGames }) => {
 }
 
 export default Game
+
+const FrameCont = styled.div`
+
+`; 
+
+const IFrame = styled.iframe`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+  /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+`;
