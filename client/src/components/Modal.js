@@ -53,7 +53,7 @@ const Modal = ({ game, openModal, show, setShow }) => {
 						<Input type="text" value={note} onChange={handleChange} />
 					</Label>
 					<Input type="submit" value="Add"  />
-					{/* TODO: "Add" creates a LI up to max of 5 (paginate if more?) */}
+					{/* TODO: Push List to DB */}
 				</Form >
 				<Ul>
 					{list.map((listItem) => {
@@ -129,7 +129,12 @@ const Time = styled.p`
 	text-align: left;
 `;
 
-const FullPage = styled(Link)``;
+const FullPage = styled(Link)`
+	text-decoration: none;
+	&:visited {
+		color: ${({ theme }) => theme.text};
+	}
+`;
 
 
 // const P = styled.p``;

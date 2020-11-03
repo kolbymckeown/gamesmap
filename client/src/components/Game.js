@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
-const parse = require("html-react-parser");
+import GameNews from './GameNews'
 
 const API_URL = process.env.REACT_APP_API_URL;
-// const gameName = // split url on first / and second /
 
 const Game = ({ user, userGames }) => {
 	let { name, id } = useParams();
+	console.log(user.id)
 	const [news, setNews] = useState([]);
-	const [show, setShow] = useState(false);
-
-	// const toggleShow = (appid) => {
-	// 	setShow((prevShow) => ({
-	// 		...prevShow,
-	// 		[appid]: !prevShow[appid],
-	// 	}));
-	// };
-
-	const toggleShow = () => {
-		setShow(!show);
-	};
-
+	const [stats, setStats] = useState([])
+	
 	useEffect(() => {
 		fetch(`${API_URL}/game/${name}/${id}`, {
 			method: "GET",
@@ -37,55 +25,70 @@ const Game = ({ user, userGames }) => {
 			.then((json) => {
 				setNews(json.body);
 			});
-	}, [setNews]);
+	}, [setNews, id, name]);
 
+	useEffect(() => {
+		fetch(`${API_URL}/game/${name}/${id}/stats/${user.id}`, {
+			method: "GET",
+			credentials: "include",
+			headers: {
+				Accept: "application/json",
+				"Content-type": "application/json",
+				"Access-Control-Allow-Credentials": true,
+			},
+		})
+		.then((resp) => resp.json())
+		.then((json) => setStats(json.body))
+	}, [setStats])
+	// const numOfAchievements = stats.achievements
+	// console.log(numOfAchievements)
+	const achievements = stats.achievements
+	// if (!achievements) {
+	// 	// Games with no Achievements (i.e Warframe) will never Load...
+	// 	return (
+	// 		<div>
+	// 			Waiting...
+	// 		</div>
+	// 	)
+	// }
 	return (
-		<div>
+		<Wrapper>
 			<p>
 				{name} / {id}
 			</p>
-			{news.map((piece, index) => {
-				const text = piece.contents;
-				// const time = piece.date
-				// const date = new Date(time)
-				// const easyRead = date.toLocaleString()
-				// All dates are showing year 1/19/1970 ?
-				return (
-					<div>
-						<p>{piece.title}</p>
-                        
-						<a href={piece.url} target="_blank">
-							{piece.url}
-							{/* TODO: Render contents with their proper tags */}
-						</a>
-						<button onClick={() => toggleShow(index)}>Show News</button>
-						{/* TODO: Toggle is only opening first News Piece, not the relative one */}
-						<div style={{ display: show ? "flex" : "none" }}>{parse(text)}</div>
-						{/* <FrameCont
-							key={piece.appid}
-							style={{ display: show ? "flex" : "none" }}
-						>
-							<IFrame src={piece.url} name="myIframe"></IFrame>
-                            <button onClick={() => setShow(false)}>Exit</button>
-						</FrameCont> */}
-					</div>
-				);
+			<Container>
+			<News>
+			{news.map((piece) => {
+                return (
+                    <GameNews piece={piece} />
+                )
 			})}
-		</div>
+			</News>
+			<UserInfo>
+				{achievements ? `The user has ${(achievements).length} achievements!` : 'This is here'}
+					
+			</UserInfo>
+			</Container>
+		</Wrapper>
 	);
 };
 
 export default Game;
 
-const FrameCont = styled.div``;
+const Wrapper = styled.div`
+	margin-left: 8px;
+`;
 
-const IFrame = styled.iframe`
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	/* bring your own prefixes */
-	transform: translate(-50%, -50%);
-	z-index: 1000;
-	width: 80vw;
-	height: 80vh;
+const Container = styled.div`
+	display: flex;
+	flex-direction: row;
+
+`;
+
+const News = styled.div`
+	flex: 1;
+`;
+
+const UserInfo = styled.div`
+	flex: 1;
 `;

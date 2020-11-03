@@ -13,6 +13,7 @@ import Header from './components/Header'
 import Games from './components/Games'
 import Homepage from './components/Homepage'
 import Game from './components/Game'
+import FourOhFour from './components/FourOhFour'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -50,12 +51,13 @@ function App() {
         <Route exact path="/">
           <Homepage user={user} />
         </Route>
-        <Route path="/games">
+        <Route exact path="/games">
           <Games user={user} userGames={userGames.games} />
         </Route>
         <Route path="/game/:name/:id">
           <Game user={user} userGames={userGames.games} />
         </Route>
+      <Route exact path="*" component={FourOhFour} />
       </Switch>
 			</ThemeProvider>
     </Router>

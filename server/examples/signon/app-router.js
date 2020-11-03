@@ -111,7 +111,7 @@ app.get('/game/:name/:id', function(req, res) {
   
   const { name, id } = req.params
   console.log(name, id)
-  fetch(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${id}`
+  fetch(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${id}&format=json`
   , {
     method: "GET",
     credentials: "include",
@@ -125,6 +125,29 @@ app.get('/game/:name/:id', function(req, res) {
     // .then(json => console.log(json.appnews.newsitems))
     .then((json) => res.status(200).json({ body: json.appnews.newsitems }))
 }) 
+
+app.get('/game/:name/:id/stats/:userId', function(req, res) {
+  try {
+  const { name, id, userId} = req.params
+  
+    // TODO: 400 Error bad request?
+  fetch(`https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2/?key=${API_KEY}&steamid=${userId}&appid=${id}`
+  , {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": true,
+    },
+    })
+    .then((res) => res.json())
+    .then((json) => res.status(200).json({ body: json.playerstats }))
+  } catch(e) {
+    console.error(e)
+  }
+})
+
 
 
 app.get('/logout', function(req, res){
