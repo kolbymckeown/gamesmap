@@ -50,7 +50,7 @@ import GamesRender from './GamesRender'
       <GamesWrap>
         {userGames.map(game => {
           return (
-            <GamesRender open={openModal} game={game} showTimePlayed={showTimePlayed} key={game.name}/>
+            <GamesRender user={user} open={openModal} game={game} showTimePlayed={showTimePlayed} key={game.name}/>
 
           )
         })}

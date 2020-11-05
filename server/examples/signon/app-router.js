@@ -2,6 +2,8 @@
  * Basic example demonstrating passport-steam usage within Express framework
  * This example uses Express's router to separate the steam authentication routes
  */
+const bodyParser = require('body-parser')
+
 var express = require('express')
   , passport = require('passport')
   , util = require('util')
@@ -17,6 +19,7 @@ var express = require('express')
   const CLIENT_DEV_URL = process.env.CLIENT_DEV_URL
   const SERVER_DEV_URL = process.env.SERVER_DEV_URL
   const fetch = require('node-fetch');
+  const { putNotes } = require('../../handlers');
   // console.log(process.env.STEAM_API_KEY)
 
 
@@ -64,6 +67,8 @@ var app = express();
 // configure Express
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.json())
 
 app.use(session({
     secret: 'your secret', // TODO: Use with Databases
@@ -144,10 +149,12 @@ app.get('/game/:name/:id/stats/:userId', function(req, res) {
     .then((res) => res.json())
     .then((json) => res.status(200).json({ body: json.playerstats }))
   } catch(e) {
+		res.status(500).json({ status: 500, message: err.message })
     console.error(e)
   }
 })
 
+app.put('/games/notes', putNotes)
 
 
 app.get('/logout', function(req, res){

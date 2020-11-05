@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addGames } from "../actions";
 import Modal from "./Modal";
 
-const GamesRender = ({ game, showTimePlayed }) => {
+const GamesRender = ({ game, showTimePlayed, user }) => {
   // const [individualGame, setIndividualGame] = React.useState({})
   const [show, setShow] = React.useState(false);
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const GamesRender = ({ game, showTimePlayed }) => {
       </IndividualGame>
       <ModalWrap>
         {show && (
-          <Modal open={openModal} show={show} setShow={setShow} game={game} />
+          <Modal open={openModal} show={show} setShow={setShow} game={game} user={user} />
         )}
       </ModalWrap>
     </>
