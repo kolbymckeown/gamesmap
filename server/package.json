@@ -27,7 +27,8 @@
   "scripts": {
     "example": "node examples/signon/app.js",
     "dev": "nodemon -r dotenv/config examples/signon/app-router.js dotenv_config_path=./.env.development",
-    "start": "nodemon -r dotenv/config examples/signon/app-router.js dotenv_config_path=./.env.production"
+    "start": "nodemon -r dotenv/config examples/signon/app-router.js dotenv_config_path=./.env.production",
+    "heroku-postbuild": "cd client && yarn add && yarn run build"
   },
   "engines": {
     "node": ">= 0.4.0"
