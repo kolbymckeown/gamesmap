@@ -13,17 +13,17 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
 
   async function handleSubmit(event) {
     // newArray.push(note)
-    const newArray = [...list, note];
+    // const newArray = [...list, note];
 
     event.preventDefault(); // Important
     // setList(newArray) setList to json.body received from Fetch
-    const res = await fetch("http://localhost:8000/games/notes", {
+    const res = await fetch("http://localhost:8000/games/notes", { // TODO: Change URL to proper once launched
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-
-      body: JSON.stringify({ note, appid: game.appid, userid: user._json.steamid }), // appid userid 
+        // TODO: Notes don't load on open, have to click "Add" first...
+      body: JSON.stringify({ note, appid: game.appid, userid: user._json.steamid }), 
 	})											
 	const json = await res.json()
 	setList(json.data) // Stretch - handle not response
@@ -62,7 +62,7 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
             <Input type="text" value={note} onChange={handleChange} />
           </Label>
           <Input type="submit" value="Add" />
-          {/* TODO: Push List to DB */}
+          {/* TODO: Background Greyed Out to focus Modal */}
         </Form>
         <Ul>
           {list.map((listItem) => {

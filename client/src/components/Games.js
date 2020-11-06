@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Loader from "react-loader-spinner";
+// import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 // import Modal from './Modal'
 // import { useDispatch } from 'react-redux'
@@ -25,16 +25,16 @@ import GamesRender from './GamesRender'
   const openTimePlayed = () => {
     setShowTimePlayed(!showTimePlayed)
   };
-  // console.log(userGames);
   if (!userGames) {
     return (
       <Load>
-        <Loader
-          type="Audio"
-          color={`${({ theme }) => theme.text}`}
-          height={180}
-          width={180}
-        />
+        <Wrapper>
+          <Div>
+            <LoginInfo>
+              Please login following the link above!
+            </LoginInfo>
+          </Div>
+        </Wrapper>
       </Load>
     );
   }
@@ -63,12 +63,22 @@ import GamesRender from './GamesRender'
 export default Games;
 
 const Load = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
+	transform: translate(-50%, -50%);
+
 `;
 
 const Wrapper = styled.div`
+`;
+
+const Div = styled.div`
+
+`;
+
+const LoginInfo = styled.h1`
+
 `;
 
 const TitleWrap = styled.div`

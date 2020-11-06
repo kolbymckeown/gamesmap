@@ -33,7 +33,6 @@ const GamesRender = ({ game, showTimePlayed, user }) => {
         />
         {showTimePlayed && 
 		<Time>
-			
 			{playTime} Hours Played
 		</Time>}
       </IndividualGame>

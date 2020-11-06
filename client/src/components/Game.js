@@ -39,7 +39,7 @@ const Game = ({ user, userGames }) => {
 		})
 		.then((resp) => resp.json())
 		.then((json) => setStats(json.body))
-	}, [setStats])
+	}, [setStats, id, name, user.id])
 	// const numOfAchievements = stats.achievements
 	// console.log(numOfAchievements)
 	const achievements = stats.achievements
