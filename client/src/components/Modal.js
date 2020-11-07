@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+const {REACT_APP_API_URL} = process.env
+
 const Modal = ({ game, openModal, show, setShow, user }) => {
   const [note, setNote] = React.useState("");
 
@@ -17,7 +19,7 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
 
     event.preventDefault(); // Important
     // setList(newArray) setList to json.body received from Fetch
-    const res = await fetch("http://localhost:8000/games/notes", { // TODO: Change URL to proper once launched
+    const res = await fetch(`${REACT_APP_API_URL}/games/notes`, { // TODO: Change URL to proper once launched
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes} from "styled-components";
 import { useDispatch } from "react-redux";
 import { addGames } from "../actions";
 import Modal from "./Modal";
@@ -46,6 +46,8 @@ const GamesRender = ({ game, showTimePlayed, user }) => {
 };
 
 export default GamesRender;
+
+
 
 const IndividualGame = styled.li`
   display: flex;

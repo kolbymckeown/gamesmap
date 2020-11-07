@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { COLORS } from "./styles/Colors";
+// import { COLORS } from "./styles/Colors";
 const API_URL = process.env.REACT_APP_API_URL
 
 
@@ -57,8 +57,8 @@ const Wrapper = styled.div`
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	background: ${({ theme }) => theme.body};
-	color: ${({ theme }) => theme.text};
+	background: ${({ theme }) => theme.text};
+	color: ${({ theme }) => theme.body};
 	transition: all 0.5s linear;
 	letter-spacing: 2px;
 `;
@@ -75,13 +75,7 @@ const NavLink = styled(Link)`
 	justify-content: space-around;
 	margin: 15px;
 	text-decoration: none;
-	color: ${({ theme }) => theme.text};
-	&:hover {
-		color: ${COLORS.REGULAR.TEAL};
-	}
-	&:visited {
-		color: ${({ theme }) => theme.text}
-	}
+	color: ${({ theme }) => theme.body};	
 `;
 
 const A = styled.a`
@@ -89,10 +83,7 @@ const A = styled.a`
 	display: flex;
 	align-items: center;
 	margin: 15px;
-	color: ${({ theme }) => theme.text};
-	&:visited {
-		color: ${({ theme }) => theme.text}
-	}
+	color: ${({ theme }) => theme.body};	
 `
 
 const Button = styled.button`
@@ -102,7 +93,8 @@ const Button = styled.button`
 	font-size: 15px;
 	border: none;
 	background: none;
-	color: ${({ theme }) => theme.text};
+	color: ${({ theme }) => theme.body};
 	letter-spacing: 3px;
 	outline: none;
+	
 `;
