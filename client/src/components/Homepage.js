@@ -2,11 +2,12 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 // import { Carousel } from 'react-responsive-carousel';
 import RemoteJpg from "../public/HomepageRemote.jpg";
+import CarouselComponent from "./CarouselComponent";
 
 const DescriptionText =
   "Think of it as a journal for your gaming experiences. Jot down notes, keep track of achievements, and even see recent news articles about your favorite games! This is your all in one app to keep you focused on what matters!";
 
-const Homepage = ({ user }) => {
+const Homepage = ({ user, userGames }) => {
   if (!user.displayName) {
     return (
       <WrapperNotLoggedIn>
@@ -15,6 +16,9 @@ const Homepage = ({ user }) => {
           <Description>{DescriptionText}</Description>
           <RemoteImg src={RemoteJpg} alt="PS4 Remote" />
         </DescCont>
+        <CarouselCont>
+        <CarouselComponent />
+        </CarouselCont>
       </WrapperNotLoggedIn>
     );
   }
@@ -34,15 +38,15 @@ const rotateImg = keyframes`
  {
     from
     {
-        transform: rotateY(0deg);
+        transform: rotateZ(0deg);
     }
     to
     {
-        transform: rotateY(180deg);
+        transform: rotateZ(180deg);
     }
     to
     {
-      transform: rotateY(360deg);
+      transform: rotateZ(360deg);
     }
 }
 `
@@ -50,14 +54,22 @@ const rotateImg = keyframes`
 const Wrapper = styled.div``;
 
 const WrapperNotLoggedIn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 15px;
 `;
 
+const CarouselCont = styled.div`
+  margin-top: 15px;
+`;
+
 const Title = styled.h1`
-font-size: 55px;
+  font-size: 3vw;
   transform: rotateZ(270deg);
   position: fixed;
-  left: -315px;
+  left: -245px; // TODO: Make Absolute on left hand side?
   top: 45%;
 `;
 
@@ -75,8 +87,8 @@ const Description = styled.h2`
 
 const RemoteImg = styled.img`
   flex: 1;
-  max-height: 500px;
-  max-width: 300px;
+  max-height: 300px;
+  max-width: 150px;
   border-top-left-radius: 30px;
   border-bottom-right-radius: 30px;
   transform: 0.8s ease-out;

@@ -49,7 +49,7 @@ function App() {
       <GlobalStyles />
       <Switch>
         <Route exact path="/">
-          <Homepage user={user} />
+          <Homepage user={user} userGames={userGames.games} />
         </Route>
         <Route exact path="/games">
           <Games user={user} userGames={userGames.games} />
