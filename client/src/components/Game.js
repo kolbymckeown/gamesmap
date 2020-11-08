@@ -66,7 +66,7 @@ const Game = ({ user, userGames }) => {
 			</News>
 			<UserInfo>
 				{achievements ? `The user has ${(achievements).length} achievements!` : 'This is here'}
-					
+					{/* TODO: Put the Ternary options each a component */}
 			</UserInfo>
 			</Container>
 		</Wrapper>

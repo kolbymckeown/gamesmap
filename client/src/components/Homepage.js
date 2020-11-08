@@ -1,7 +1,6 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 // import { Carousel } from 'react-responsive-carousel';
-import RemoteJpg from "../public/HomepageRemote.jpg";
 import CarouselComponent from "./CarouselComponent";
 
 const DescriptionText =
@@ -14,7 +13,6 @@ const Homepage = ({ user, userGames }) => {
         <Title>Welcome to Gamesmap!</Title>
         <DescCont>
           <Description>{DescriptionText}</Description>
-          <RemoteImg src={RemoteJpg} alt="PS4 Remote" />
         </DescCont>
         <CarouselCont>
         <CarouselComponent />
@@ -34,22 +32,22 @@ const Homepage = ({ user, userGames }) => {
 
 export default Homepage;
 
-const rotateImg = keyframes`
- {
-    from
-    {
-        transform: rotateZ(0deg);
-    }
-    to
-    {
-        transform: rotateZ(180deg);
-    }
-    to
-    {
-      transform: rotateZ(360deg);
-    }
-}
-`
+// const rotateImg = keyframes`
+//  {
+//     from
+//     {
+//         transform: rotateZ(0deg);
+//     }
+//     to
+//     {
+//         transform: rotateZ(180deg);
+//     }
+//     to
+//     {
+//       transform: rotateZ(360deg);
+//     }
+// }
+// `
 
 const Wrapper = styled.div``;
 
@@ -85,16 +83,16 @@ const Description = styled.h2`
   max-width: 40%;
 `;
 
-const RemoteImg = styled.img`
-  flex: 1;
-  max-height: 300px;
-  max-width: 150px;
-  border-top-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-  transform: 0.8s ease-out;
-  &:hover {
-  animation-name: ${rotateImg};
-  animation-duration: 5s;
-  animation-iteration-count: infinite;
-  }
-`;
+// const RemoteImg = styled.img`
+//   flex: 1;
+//   max-height: 300px;
+//   max-width: 150px;
+//   border-top-left-radius: 30px;
+//   border-bottom-right-radius: 30px;
+//   transform: 0.8s ease-out;
+//   &:hover {
+//   animation-name: ${rotateImg};
+//   animation-duration: 5s;
+//   animation-iteration-count: infinite;
+//   }
+// `;

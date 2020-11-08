@@ -73,6 +73,7 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
             }
             return (
               <>
+              {/* TODO: Reverse the list to go top down */}
                 <Li>{listItem}</Li>
               </>
             );
