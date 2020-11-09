@@ -2,11 +2,26 @@ import React from "react";
 import styled from "styled-components";
 // import { Carousel } from 'react-responsive-carousel';
 import CarouselComponent from "./CarouselComponent";
+import ReactPlayer from 'react-player'
 
 const DescriptionText =
   "Think of it as a journal for your gaming experiences. Jot down notes, keep track of achievements, and even see recent news articles about your favorite games! This is your all in one app to keep you focused on what matters!";
 
 const Homepage = ({ user, userGames }) => {
+  const [stream, setStream] = React.useState('')
+  const [twitch, setTwitch] = React.useState('')
+
+  function handleChange(e) {
+    setStream(e.target.value) 
+    console.log(stream)
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    setTwitch(stream)
+  }
+
+
   if (!user.displayName) {
     return (
       <WrapperNotLoggedIn>
@@ -15,7 +30,7 @@ const Homepage = ({ user, userGames }) => {
           <Description>{DescriptionText}</Description>
         </DescCont>
         <CarouselCont>
-        <CarouselComponent />
+          <CarouselComponent />
         </CarouselCont>
       </WrapperNotLoggedIn>
     );
@@ -23,31 +38,24 @@ const Homepage = ({ user, userGames }) => {
   return (
     <Wrapper>
       <p>Homepage</p>
-      {console.log(user)}
       <p>{user.displayName}</p>
-      
+      <Form onSubmit={handleSubmit}>
+        <Label>Enter the channel:
+          <Input type="text" value={stream} onChange={handleChange} />
+        </Label>
+        <Input type="submit" value="Twitch" />
+      </Form>
+      {/* <CarouselCont>
+        <CarouselComponent />
+      </CarouselCont> */}
+      <VidCont>
+        <ReactPlayer url={`twitch.tv/${twitch}`}controls />
+      </VidCont>
     </Wrapper>
   );
 };
 
 export default Homepage;
-
-// const rotateImg = keyframes`
-//  {
-//     from
-//     {
-//         transform: rotateZ(0deg);
-//     }
-//     to
-//     {
-//         transform: rotateZ(180deg);
-//     }
-//     to
-//     {
-//       transform: rotateZ(360deg);
-//     }
-// }
-// `
 
 const Wrapper = styled.div``;
 
@@ -57,6 +65,17 @@ const WrapperNotLoggedIn = styled.div`
   justify-content: center;
   align-items: center;
   margin: 15px;
+`;
+
+const Form = styled.form``;
+const Label = styled.label``;
+const Input = styled.input``;
+
+const VidCont = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const CarouselCont = styled.div`

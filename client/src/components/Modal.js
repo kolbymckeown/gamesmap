@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 const {REACT_APP_API_URL} = process.env
-
 const Modal = ({ game, openModal, show, setShow, user }) => {
   const [note, setNote] = React.useState("");
-
   const [list, setList] = React.useState([]);
 
   function handleChange(e) {
@@ -28,10 +27,15 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
       body: JSON.stringify({ note, appid: game.appid, userid: user._json.steamid }), 
 	})											
 	const json = await res.json()
-	setList(json.data) // Stretch - handle not response
-	
-	;	
+  setList(json.data); // Stretch - handle no response
+  setNote('') // clears input field once the list is added
   }
+
+  // async function handleDelete(event) {
+  //   event.preventDefault();
+  //   const 
+  //   const res = await fetch(`${REACT_APP_API_URL}/games/notes/${_id}`)
+  // }
 
   function closeModal() {
     setShow(!show);
@@ -58,12 +62,12 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
           alt={`${game.name} Logo`}
         />
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} >
           <Label>
             Add a note:
             <Input type="text" value={note} onChange={handleChange} />
           </Label>
-          <Input type="submit" value="Add" />
+          <Input type="submit" value="Add" disabled={!note} />
           {/* TODO: Background Greyed Out to focus Modal */}
         </Form>
         <Ul>
@@ -73,8 +77,7 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
             }
             return (
               <>
-              {/* TODO: Reverse the list to go top down */}
-                <Li>{listItem}</Li>
+                <Li key={uuidv4()}>{listItem}</Li>
               </>
             );
           })}
@@ -167,6 +170,10 @@ const Ul = styled.ul`
   max-height: 90%;
   position: relative;
   overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
 `;
 
-const Li = styled.li``;
+const Li = styled.li`
+  padding: 15px 7px;
+`;

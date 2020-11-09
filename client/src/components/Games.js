@@ -48,7 +48,7 @@ import GamesRender from './GamesRender'
         </Button>
       </TitleWrap>
       <GamesWrap>
-        {userGames.map(game => {
+        {userGames.sort().map(game => {
           return (
             <GamesRender user={user} open={openModal} game={game} showTimePlayed={showTimePlayed} key={game.name}/>
 

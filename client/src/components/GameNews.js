@@ -25,7 +25,7 @@ const GameNews = ({ piece }) => {
     // TODO: https://www.npmjs.com/package/bbcode-to-react
   let finalText = output.replaceAll(regex, '')
   finalText = finalText.replaceAll(regex2, '')
-  console.log(text)
+  // console.log(text)
 
   return (
 

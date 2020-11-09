@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import GameNews from './GameNews'
+import GameNotes from './GameNotes'
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Game = ({ user, userGames }) => {
+	// console.log(userGames, 'here')
 	let { name, id } = useParams();
-	console.log(user.id)
+	// console.log(user.id)
 	const [news, setNews] = useState([]);
 	const [stats, setStats] = useState([])
 	
@@ -67,6 +69,7 @@ const Game = ({ user, userGames }) => {
 			<UserInfo>
 				{achievements ? `The user has ${(achievements).length} achievements!` : 'This is here'}
 					{/* TODO: Put the Ternary options each a component */}
+					<GameNotes game={id} user={user} />
 			</UserInfo>
 			</Container>
 		</Wrapper>

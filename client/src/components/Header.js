@@ -9,6 +9,7 @@ const Header = ({ theme, setTheme, user }) => {
 	const themeToggler = () => {
 		theme === "light" ? setTheme("dark") : setTheme("light");
 		localStorage.setItem('theme', theme)
+		// Saves Users Dark or Light Mode preference
 	};
 
 	React.useEffect(() => {
