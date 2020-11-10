@@ -13,29 +13,19 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
   }
 
   async function handleSubmit(event) {
-    // newArray.push(note)
-    // const newArray = [...list, note];
-
     event.preventDefault(); // Important
-    // setList(newArray) setList to json.body received from Fetch
     const res = await fetch(`${REACT_APP_API_URL}/games/notes`, { // TODO: Change URL to proper once launched
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-        // TODO: Notes don't load on open, have to click "Add" first...
+      // TODO: Notes don't load on open, have to click "Add" first...
       body: JSON.stringify({ note, appid: game.appid, userid: user._json.steamid }), 
 	})											
 	const json = await res.json()
   setList(json.data); // Stretch - handle no response
   setNote('') // clears input field once the list is added
   }
-
-  // async function handleDelete(event) {
-  //   event.preventDefault();
-  //   const 
-  //   const res = await fetch(`${REACT_APP_API_URL}/games/notes/${_id}`)
-  // }
 
   function closeModal() {
     setShow(!show);

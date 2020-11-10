@@ -9,7 +9,7 @@ const DescriptionText =
 
 const Homepage = ({ user, userGames }) => {
   const [stream, setStream] = React.useState('')
-  const [twitch, setTwitch] = React.useState('')
+  const [twitch, setTwitch] = React.useState(false)
 
   function handleChange(e) {
     setStream(e.target.value) 
@@ -37,19 +37,24 @@ const Homepage = ({ user, userGames }) => {
   }
   return (
     <Wrapper>
-      <p>Homepage</p>
-      <p>{user.displayName}</p>
+      <Intro>Hey {user.displayName}! <br />Feel free to hang out here and watch your favorite <br /> games played by your favorite streamers! </Intro>
+      <VidCont>
+
+      <FormCont>
       <Form onSubmit={handleSubmit}>
         <Label>Enter the channel:
           <Input type="text" value={stream} onChange={handleChange} />
         </Label>
-        <Input type="submit" value="Twitch" />
+        <Input type="submit" value="Play!" />
       </Form>
+      <Example>Example: if the full url is 'twitch.tv/<strong>thestream</strong>', simply type in <strong>thestream</strong> and press play!</Example>
+      </FormCont>
       {/* <CarouselCont>
         <CarouselComponent />
       </CarouselCont> */}
-      <VidCont>
-        <ReactPlayer url={`twitch.tv/${twitch}`}controls />
+        {twitch 
+        ? <ReactPlayer url={`twitch.tv/${twitch}`}controls />
+        : <Type>Type in a stream above to load up the live feed!</Type>}
       </VidCont>
     </Wrapper>
   );
@@ -57,7 +62,15 @@ const Homepage = ({ user, userGames }) => {
 
 export default Homepage;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  text-align: center;
+`;
+
+const Intro = styled.h1`
+  font-size: 2vw;
+  padding: 18px;
+  text-align: center;
+`;
 
 const WrapperNotLoggedIn = styled.div`
   display: flex;
@@ -67,9 +80,22 @@ const WrapperNotLoggedIn = styled.div`
   margin: 15px;
 `;
 
+const FormCont = styled.div`
+
+`;
+
+const Example = styled.p`
+  font-style: italic;
+  font-size: 0.8em;
+`;
+
+const Type = styled.h2``;
+
 const Form = styled.form``;
 const Label = styled.label``;
-const Input = styled.input``;
+const Input = styled.input`
+  margin-left: 5px;
+`;
 
 const VidCont = styled.div`
   position: fixed;
