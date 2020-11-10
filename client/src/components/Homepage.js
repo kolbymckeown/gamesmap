@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 // import { Carousel } from 'react-responsive-carousel';
 import CarouselComponent from "./CarouselComponent";
 import ReactPlayer from 'react-player'
@@ -7,13 +7,33 @@ import ReactPlayer from 'react-player'
 const DescriptionText =
   "Think of it as a journal for your gaming experiences. Jot down notes, keep track of achievements, and even see recent news articles about your favorite games! This is your all in one app to keep you focused on what matters!";
 
+  const twitchPurple = '#9146FF'
+
+  const blink = keyframes`
+  from, to { border-color: transparent }
+  50% { border-color: ${twitchPurple} }
+  `;
+  const borderWidth = keyframes`
+    from { opacity: 0 }
+    to { opacity: 100% }
+  `;
+
+const bouncy = keyframes`
+  0%{top:0em}
+ 40%{top:0em}
+ 43%{top:-0.9em}
+ 46%{top:0em}
+ 48%{top:-0.4em}
+ 50%{top:0em}
+ 100%{top:0em;}
+`;
+
 const Homepage = ({ user, userGames }) => {
   const [stream, setStream] = React.useState('')
   const [twitch, setTwitch] = React.useState(false)
 
   function handleChange(e) {
     setStream(e.target.value) 
-    console.log(stream)
   }
 
   function handleSubmit(event) {
@@ -21,11 +41,17 @@ const Homepage = ({ user, userGames }) => {
     setTwitch(stream)
   }
 
+  
+
 
   if (!user.displayName) {
     return (
       <WrapperNotLoggedIn>
-        <Title>Welcome to Gamesmap!</Title>
+        <Outer>
+          <Inner>
+          <Title>Welcome to Gamesmap!</Title>
+          </Inner>
+        </Outer>
         <DescCont>
           <Description>{DescriptionText}</Description>
         </DescCont>
@@ -42,16 +68,13 @@ const Homepage = ({ user, userGames }) => {
 
       <FormCont>
       <Form onSubmit={handleSubmit}>
-        <Label>Enter the channel:
-          <Input type="text" value={stream} onChange={handleChange} />
+        <Label>www.twitch.tv/
+          <InputText type="text" value={stream} onChange={handleChange} />
         </Label>
         <Input type="submit" value="Play!" />
       </Form>
       <Example>Example: if the full url is 'twitch.tv/<strong>thestream</strong>', simply type in <strong>thestream</strong> and press play!</Example>
       </FormCont>
-      {/* <CarouselCont>
-        <CarouselComponent />
-      </CarouselCont> */}
         {twitch 
         ? <ReactPlayer url={`twitch.tv/${twitch}`}controls />
         : <Type>Type in a stream above to load up the live feed!</Type>}
@@ -64,12 +87,27 @@ export default Homepage;
 
 const Wrapper = styled.div`
   text-align: center;
+  color: ${twitchPurple};
 `;
 
 const Intro = styled.h1`
   font-size: 2vw;
   padding: 18px;
   text-align: center;
+  color: ${({ theme }) => theme.text };
+`;
+
+const Outer = styled.div`
+  position: fixed;
+  left: 0;
+  top: 80px;
+`;
+const Inner = styled.div`
+position: absolute;
+  bottom: 100%;
+  transform: rotateZ(90deg);
+  transform-origin: 0 100%;
+  white-space: nowrap;
 `;
 
 const WrapperNotLoggedIn = styled.div`
@@ -91,10 +129,46 @@ const Example = styled.p`
 
 const Type = styled.h2``;
 
-const Form = styled.form``;
-const Label = styled.label``;
+const Form = styled.form`
+  animation: ${borderWidth} 3s steps(40, end);
+`;
+
+const Label = styled.label`
+`;
+
+const InputText = styled.input`
+  border: none;
+  border-bottom: 1px solid;
+  background: unset;
+  animation: ${blink} 1.75s step-end infinite;
+  color: ${({ theme }) => theme.text };
+  font-weight: bold;
+  font-style: italic;
+  &:focus {
+    animation: unset;
+    outline: none;
+    border-color: ${twitchPurple};
+    caret-color: ${twitchPurple};
+  }
+`;
+
 const Input = styled.input`
   margin-left: 5px;
+  font-weight: bold;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  border-radius: 50%;
+  background: none;
+  color: ${twitchPurple};
+  border: 2px solid ${twitchPurple};
+  position: relative;
+  animation: ${bouncy} 4s infinite linear;
+  outline: none;
+  &:active {
+    animation: none;
+    transform: scale(0.85);
+  } 
 `;
 
 const VidCont = styled.div`
@@ -110,10 +184,7 @@ const CarouselCont = styled.div`
 
 const Title = styled.h1`
   font-size: 3vw;
-  transform: rotateZ(270deg);
-  position: fixed;
-  left: -245px; // TODO: Make Absolute on left hand side?
-  top: 45%;
+  transform: rotate(180deg);
 `;
 
 const DescCont = styled.div`

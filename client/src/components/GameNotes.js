@@ -5,7 +5,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 
 const GameNotes = ({ game, user }) => {
-	console.log(game)
 	const [ noteList, setNoteList ] = useState([])
 	useEffect(() => {
 		const request = `${API_URL}/games/notes/${user._json.steamid}/${game}`;
@@ -17,7 +16,6 @@ const GameNotes = ({ game, user }) => {
 		})
 		.then((res) => res.json())
 		.then((json) => {
-			console.log(json.data)
 			setNoteList(json.data)
 		})
 	}, []) // Should reload when setNoteList is run in handleDelete()
@@ -41,9 +39,6 @@ const GameNotes = ({ game, user }) => {
 			setNoteList(newState)
 		
 	}
-
-
-	console.log(noteList)
 
 	if (!user._json.steamid) {
 		return (
