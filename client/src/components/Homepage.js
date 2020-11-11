@@ -63,9 +63,9 @@ const Homepage = ({ user, userGames }) => {
 			<Intro>
 				Hey {user.displayName}! <br />
 				Feel free to hang out here and watch your favorite <br /> games played
-				by your favorite streamers!{" "}
+				by your favorite streamers!
 			</Intro>
-			<VidCont>
+			<VidCont style={{ marginTop: twitch && '75px' }}>
 				<FormCont>
 					<Form onSubmit={handleSubmit}>
 						<Label>
@@ -74,7 +74,7 @@ const Homepage = ({ user, userGames }) => {
 						</Label>
 						<Input type="submit" value="Play!" />
 					</Form>
-					<Example>
+					<Example style={{ display: twitch && 'none'}}>
 						Example: if the full url is 'twitch.tv/<strong>thestream</strong>',
 						simply type in <strong>thestream</strong> and press play!
 					</Example>
@@ -97,7 +97,7 @@ const Wrapper = styled.div`
 `;
 
 const Intro = styled.h1`
-	font-size: 2vw;
+	font-size: 1.5vw;
 	padding: 18px;
 	text-align: center;
 	color: ${({ theme }) => theme.text};
@@ -135,6 +135,7 @@ const Type = styled.h2``;
 
 const Form = styled.form`
 	animation: ${borderWidth} 3s steps(40, end);
+	margin-bottom: 15px;
 `;
 
 const Label = styled.label``;
@@ -175,10 +176,13 @@ const Input = styled.input`
 `;
 
 const VidCont = styled.div`
+
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	// TODO: VidCont Style for smaller screens
+	
 `;
 
 const CarouselCont = styled.div`
