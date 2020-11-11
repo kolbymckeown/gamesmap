@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 // import Game from './Game';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -50,16 +51,22 @@ const GameNotes = ({ game, user }) => {
 	return (
 		<div>
 			This is where the notes go!
+			{console.log(noteList)}
 			{noteList.map((item) => {
+				
 				return (
-					<div>
+					<NoteCont>
 					<p>{item}</p>
 					<button onClick={() => handleDelete(item)}>Delete</button>
-					</div>
+					</NoteCont>
 				)
 			})}
 		</div>
 	)
 }
 
-export default GameNotes
+export default GameNotes;
+
+const NoteCont = styled.div`
+	border-bottom: 1px dashed ${({ theme }) => theme.text};
+`;

@@ -37,9 +37,7 @@ const GameNews = ({ piece }) => {
         </Link>
         <Button onClick={toggleShow}>{show ? "↑" : `↓`}</Button>
       </Container>
-
       <Info style={{ display: show ? "flex" : "none" }}>{parse(finalText)}</Info>
-      {/* TODO: Not all text being Parsed properly ? */}
     </Wrapper>
   );
 };
@@ -50,6 +48,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  border-right: 3px solid ${({ theme }) => theme.text};
 `;
 
 const Title = styled.h1`
@@ -75,6 +74,8 @@ const Button = styled.button`
   font-weight: bold;
   background: none;
   border: none;
+  position: absolute; // More margin between each
+  right: 0;
   color: ${({ theme }) => theme.text};
   &:active {
     outline: none;

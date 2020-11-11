@@ -29,22 +29,22 @@ const Game = ({ user, userGames }) => {
 			});
 	}, [setNews, id, name]);
 
-	// useEffect(() => {
-	// 	fetch(`${API_URL}/game/${name}/${id}/stats/${user.id}`, {
-	// 		method: "GET",
-	// 		credentials: "include",
-	// 		headers: {
-	// 			Accept: "application/json",
-	// 			"Content-type": "application/json",
-	// 			"Access-Control-Allow-Credentials": true,
-	// 		},
-	// 	})
-	// 	.then((resp) => resp.json())
-	// 	.then((json) => setStats(json.body))
-	// }, [setStats, id, name, user.id])
-	// const numOfAchievements = stats.achievements
-	// console.log(numOfAchievements)
-	// const achievements = stats.achievements
+	useEffect(() => {
+		fetch(`${API_URL}/game/${name}/${id}/stats/${user.id}`, {
+			method: "GET",
+			credentials: "include",
+			headers: {
+				Accept: "application/json",
+				"Content-type": "application/json",
+				"Access-Control-Allow-Credentials": true,
+			},
+		})
+		.then((resp) => resp.json())
+		.then((json) => console.log(json))
+		console.log('here')
+	}, [setStats, id, name, user.id])
+	const achievements = stats.achievements
+	// console.log(achievements)
 	// if (!achievements) {
 	// 	// Games with no Achievements (i.e Warframe) will never Load...
 	// 	return (
@@ -75,7 +75,7 @@ const Game = ({ user, userGames }) => {
 			})}
 			</News>
 			<UserInfo>
-				{/* {achievements ? `The user has ${(achievements).length} achievements!` : 'This is here'} */}
+				{achievements ? `The user has ${(achievements).length} achievements!` : 'This is here'}
 					{/* TODO: Put the Ternary options each a component */}
 					<GameNotes game={id} user={user} />
 			</UserInfo>
