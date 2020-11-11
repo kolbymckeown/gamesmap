@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import GameNews from './GameNews'
-import GameNotes from './GameNotes'
+import GameNews from "./GameNews";
+import GameNotes from "./GameNotes";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Game = ({ user, userGames }) => {
-	// console.log(userGames, 'here')
 	let { name, id } = useParams();
-	// console.log(user.id)
 	const [news, setNews] = useState([]);
-	const [stats, setStats] = useState([])
-	
+	const themeColor = `${({ theme }) => theme.text}`;
+
 	useEffect(() => {
 		fetch(`${API_URL}/game/${name}/${id}`, {
 			method: "GET",
@@ -29,56 +29,27 @@ const Game = ({ user, userGames }) => {
 			});
 	}, [setNews, id, name]);
 
-	useEffect(() => {
-		fetch(`${API_URL}/game/${name}/${id}/stats/${user.id}`, {
-			method: "GET",
-			credentials: "include",
-			headers: {
-				Accept: "application/json",
-				"Content-type": "application/json",
-				"Access-Control-Allow-Credentials": true,
-			},
-		})
-		.then((resp) => resp.json())
-		.then((json) => console.log(json))
-		console.log('here')
-	}, [setStats, id, name, user.id])
-	const achievements = stats.achievements
-	// console.log(achievements)
-	// if (!achievements) {
-	// 	// Games with no Achievements (i.e Warframe) will never Load...
-	// 	return (
-	// 		<div>
-	// 			Waiting...
-	// 		</div>
-	// 	)
-	// }
 	if (!userGames) {
 		return (
-			<div>
-				waiting
-			</div>
-		)
+			<Load>
+				<Loader color={themeColor} />
+			</Load>
+		);
 	}
 
 	return (
 		<Wrapper>
-			<p>
-				{name} / {id}
-			</p>
+			<GameName>{name}</GameName>
 			<Container>
-			<News>
-			{news.map((piece) => {
-                return (
-                    <GameNews piece={piece} />
-                )
-			})}
-			</News>
-			<UserInfo>
-				{achievements ? `The user has ${(achievements).length} achievements!` : 'This is here'}
-					{/* TODO: Put the Ternary options each a component */}
+				<News>
+					<H2>News</H2>
+					{news.map((piece) => {
+						return <GameNews piece={piece} />;
+					})}
+				</News>
+				<UserInfo>
 					<GameNotes game={id} user={user} />
-			</UserInfo>
+				</UserInfo>
 			</Container>
 		</Wrapper>
 	);
@@ -86,18 +57,35 @@ const Game = ({ user, userGames }) => {
 
 export default Game;
 
+const Load = styled.div`
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+`;
+
 const Wrapper = styled.div`
 	margin-left: 8px;
+`;
+
+const H2 = styled.h2`
+	text-align: center;
+	font-style: italic;
+`;
+
+const GameName = styled.h1`
+	text-align: center;
 `;
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: row;
-
+	border-top: 3px solid ${({ theme }) => theme.text};
 `;
 
 const News = styled.div`
 	flex: 1;
+	border-right: 3px solid ${({ theme }) => theme.text};
 `;
 
 const UserInfo = styled.div`

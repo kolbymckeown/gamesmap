@@ -1,115 +1,100 @@
 import React from "react";
 import styled from "styled-components";
-// import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-// import Modal from './Modal'
-// import { useDispatch } from 'react-redux'
-// import { addGames } from '../actions'
-import GamesRender from './GamesRender'
+import GamesRender from "./GamesRender";
 
-// const API_KEY = process.env.REACT_APP_API_KEY;
+const Games = ({ user, userGames }) => {
+	const [showTimePlayed, setShowTimePlayed] = React.useState(false);
 
-// const userGames = localStorage.getItem('Games')
+	const openModal = () => {
+		setShow(!show);
+	};
+	const [show, setShow] = React.useState(false);
 
-  const Games = ({ user, userGames }) => {
-  const [showTimePlayed, setShowTimePlayed] = React.useState(false);
-  // const [show, setShow] = React.useState(false);
-  // const openTimePlayed = () => setShowTimePlayed(true)
-  // const dispatch = useDispatch()
+	const openTimePlayed = () => {
+		setShowTimePlayed(!showTimePlayed);
+	};
 
-  const openModal = () => {
-    setShow(!show)
-  }
-  const [show, setShow] = React.useState(false);
-  
-  const openTimePlayed = () => {
-    setShowTimePlayed(!showTimePlayed)
-  };
-  if (!userGames) {
-    return (
-      <Load>
-        <Wrapper>
-          <Div>
-            <LoginInfo>
-              Please login following the link above!
-            </LoginInfo>
-          </Div>
-        </Wrapper>
-      </Load>
-    );
-  }
+	if (!userGames) {
+		return (
+			<Load>
+				<Wrapper>
+					<Div>
+						<LoginInfo>Please login following the link above!</LoginInfo>
+					</Div>
+				</Wrapper>
+			</Load>
+		);
+	}
 
-  return (
-    <Wrapper>
-      <TitleWrap>
-        <Title>All Owned Games</Title>
-        <Button onClick={openTimePlayed}>
-          {showTimePlayed ? "Hide The Shame" : "Show Time Played"}
-        </Button>
-      </TitleWrap>
-      <GamesWrap>
-        {userGames.sort().map(game => {
-          return (
-            <GamesRender user={user} open={openModal} game={game} showTimePlayed={showTimePlayed} key={game.name}/>
-
-          )
-        })}
-      </GamesWrap>
-      
-    </Wrapper>
-  );    
+	return (
+		<Wrapper>
+			<TitleWrap>
+				<Title>All Owned Games</Title>
+				<Button onClick={openTimePlayed}>
+					{showTimePlayed ? "Hide The Shame" : "Show Time Played"}
+				</Button>
+			</TitleWrap>
+			<GamesWrap>
+				{userGames.sort().map((game) => {
+					return (
+						<GamesRender
+							user={user}
+							open={openModal}
+							game={game}
+							showTimePlayed={showTimePlayed}
+							key={game.name}
+						/>
+					);
+				})}
+			</GamesWrap>
+		</Wrapper>
+	);
 };
 
 export default Games;
 
 const Load = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
 	transform: translate(-50%, -50%);
-
 `;
 
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 
-const Div = styled.div`
+const Div = styled.div``;
 
-`;
-
-const LoginInfo = styled.h1`
-
-`;
+const LoginInfo = styled.h1``;
 
 const TitleWrap = styled.div`
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 `;
 
 const Title = styled.h1`
-  margin-left: 45px;
+	margin-left: 45px;
 `;
 
 const Button = styled.button`
-  margin-left: 25px;
-  background: none;
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.text};
-  color: ${({ theme }) => theme.text};
-  border-radius: 3px;
-  padding: 8px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  width: 175px;
-  &:active {
-    background: ${({ theme }) => theme.text};
-    color: ${({ theme }) => theme.body};
-  }
+	margin-left: 25px;
+	background: none;
+	outline: none;
+	border: 1px solid ${({ theme }) => theme.text};
+	color: ${({ theme }) => theme.text};
+	border-radius: 3px;
+	padding: 8px;
+	font-weight: bold;
+	letter-spacing: 1.5px;
+	width: 175px;
+	&:active {
+		background: ${({ theme }) => theme.text};
+		color: ${({ theme }) => theme.body};
+	}
 `;
 
 const GamesWrap = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 `;
 
 // const IndividualGame = styled.li`
@@ -137,5 +122,3 @@ const GamesWrap = styled.ul`
 //   font-size: 0.9rem;
 //   left: 10%;
 // `;
-
-
