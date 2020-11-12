@@ -7,7 +7,8 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const GameNotes = ({ game, user }) => {
   const [note, setNote] = React.useState("");
-  const [list, setList] = React.useState([]);
+  const [noteList, setNoteList] = useState([]);
+  const themeColor = `${({ theme }) => theme.text}`;
 
   function handleChange(e) {
     setNote(e.target.value);
@@ -16,7 +17,6 @@ const GameNotes = ({ game, user }) => {
   async function handleSubmit(event) {
     event.preventDefault(); // Important
     const res = await fetch(`${API_URL}/games/notes`, {
-      // TODO: Change URL to proper once launched
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -25,12 +25,11 @@ const GameNotes = ({ game, user }) => {
       body: JSON.stringify({ note, appid: game, userid: user._json.steamid }),
     });
     const json = await res.json();
-    setList(json.data); // Stretch - handle no response
+    
+    setNoteList(json.data); // Stretch - handle no response
     setNote(""); // clears input field once the list is added
   }
 
-  const [noteList, setNoteList] = useState([]);
-  const themeColor = `${({ theme }) => theme.text}`;
   useEffect(() => {
     const request = `${API_URL}/games/notes/${user._json.steamid}/${game}`;
     fetch(request, {
@@ -43,8 +42,8 @@ const GameNotes = ({ game, user }) => {
       .then((json) => {
         setNoteList(json.data);
       });
-  }, [game, user._json.steamid]);
-  // TODO: Reload the Notes on Add ?
+  }, []); // useCallback , useMemo
+
   function handleDelete(item) {
     fetch(`${API_URL}/games/notes/${user._json.steamid}/${game}`, {
       method: "PATCH",
@@ -74,9 +73,9 @@ const GameNotes = ({ game, user }) => {
     <div>
       <Title>Notes</Title>
       <Form onSubmit={handleSubmit}>
-        <Label>
-          Add a note:
-          <Input type="text" value={note} onChange={handleChange} />
+        <Label for="notes">
+          Add a note: 
+          <TextArea id="notes" rows="3" cols="50" type="text" value={note} onChange={handleChange} />
         </Label>
         <Input type="submit" value="Add" disabled={!note} />
         {/* TODO: Background Greyed Out to focus Modal */}
@@ -109,9 +108,17 @@ const Form = styled.form`
   margin-top: 15px;
   padding-left: 15px;
 `;
-const Label = styled.label``;
+const Label = styled.label`
+  display: block;
+`;
 const Input = styled.input`
-  margin-left: 8px;
+  margin-top: 5px;
+`;
+
+const TextArea = styled.textarea`
+  display: block;
+  font-family: inherit;
+  resize: none;
 `;
 
 const Ul = styled.ul`

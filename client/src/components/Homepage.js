@@ -5,7 +5,7 @@ import CarouselComponent from "./CarouselComponent";
 import ReactPlayer from "react-player";
 
 const DescriptionText =
-	"Here at Gamesmap, we're an all in one stop for gamers. Jot down notes, watch your favorite streams, and even see recent news articles for your games! This is your all in one site to keep you focused on what matters!";
+	"Please Login with the link above, or hang out and watch your favorite streamer!";
 
 const twitchPurple = "#9146FF";
 
@@ -53,7 +53,26 @@ const Homepage = ({ user, userGames }) => {
 					<Description>{DescriptionText}</Description>
 				</DescCont>
 				<CarouselCont>
-					<CarouselComponent />
+				<VidCont style={{ marginTop: twitch && '75px' }}>
+				<FormCont>
+					<Form onSubmit={handleSubmit}>
+						<Label>
+							www.twitch.tv/
+							<InputText type="text" value={stream} onChange={handleChange} />
+						</Label>
+						<Input type="submit" value="Play!" />
+					</Form>
+					<Example style={{ display: twitch && 'none'}}>
+						Example: if the full url is 'twitch.tv/<strong>thestream</strong>',
+						simply type in <strong>thestream</strong> and press play!
+					</Example>
+				</FormCont>
+				{twitch ? (
+					<ReactPlayer url={`twitch.tv/${twitch}`} controls />
+				) : (
+					<Type>Type in a stream above to load up the live feed!</Type>
+				)}
+			</VidCont>
 				</CarouselCont>
 			</WrapperNotLoggedIn>
 		);

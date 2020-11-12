@@ -53,9 +53,9 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
         />
 
         <Form onSubmit={handleSubmit} >
-          <Label>
+          <Label for="modalNote">
             Add a note:
-            <Input type="text" value={note} onChange={handleChange} />
+            <TextArea id="modalNote" rows="3" cols="30" type="text" value={note} onChange={handleChange} />
           </Label>
           <Input type="submit" value="Add" disabled={!note} />
           {/* TODO: Background Greyed Out to focus Modal */}
@@ -84,6 +84,12 @@ const Cont = styled.div`
   padding: 25px;
   border-radius: 5px;
   position: relative;
+`;
+
+const TextArea = styled.textarea`
+  font-family: inherit;
+  resize: none;
+  display: block;
 `;
 
 const X = styled.button`
@@ -128,7 +134,7 @@ const TimeCont = styled.div`
 const Time = styled.p`
   font-style: italic;
   font-size: 14px;
-  text-align: left;
+  text-align: center;
 `;
 
 const FullPage = styled(Link)`
@@ -149,9 +155,12 @@ const Img = styled.img`
 const Form = styled.form`
   margin-top: 15px;
 `;
-const Label = styled.label``;
+const Label = styled.label`
+  display: block;
+`;
+
 const Input = styled.input`
-  margin-left: 8px;
+  margin-top: 5px;
 `;
 
 const Ul = styled.ul`
