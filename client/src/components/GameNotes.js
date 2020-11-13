@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
+import {
+  FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon
+} from 'react-share';
+// TODO: Change Share URL once deployed (will not work on localhost)
 const API_URL = process.env.REACT_APP_API_URL;
-
+const URL = `http://localhost:3000/games`;
 const GameNotes = ({ game, user }) => {
   const [note, setNote] = React.useState("");
   const [noteList, setNoteList] = useState([]);
@@ -89,6 +92,10 @@ const GameNotes = ({ game, user }) => {
                 <DeleteButton onClick={() => handleDelete(item)}>
                   X
                 </DeleteButton>
+                <SocialIcons>
+                <FacebookShareButton style={{ margin: '8px' }} url={URL} quote="placeholder" hashtag="#placeholder"><FacebookIcon round={true} size={25} /></FacebookShareButton>
+                <TwitterShareButton url={URL} quote="placeholder" hashtag="#placeholder"><TwitterIcon round={true} size={25} /></TwitterShareButton>
+                </SocialIcons>
               </Li>
             </NoteCont>
           );
@@ -102,6 +109,10 @@ export default GameNotes;
 
 const Note = styled.p`
   margin-bottom: 0;
+`;
+
+const SocialIcons = styled.div`
+  display: flex;
 `;
 
 const Form = styled.form`
