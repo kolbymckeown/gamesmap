@@ -19,7 +19,6 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      // TODO: Notes don't load on open, have to click "Add" first...
       body: JSON.stringify({ note, appid: game.appid, userid: user._json.steamid }), 
 	})											
 	const json = await res.json()
@@ -53,7 +52,7 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
         />
 
         <Form onSubmit={handleSubmit} >
-          <Label for="modalNote">
+          <Label htmlFor="modalNote">
             Add a note:
             <TextArea id="modalNote" rows="3" cols="30" type="text" value={note} onChange={handleChange} />
           </Label>

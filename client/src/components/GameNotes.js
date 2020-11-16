@@ -5,6 +5,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import {
   FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon
 } from 'react-share';
+import { v4 as uuidv4 } from 'uuid';
+
 // TODO: Change Share URL once deployed (will not work on localhost)
 const API_URL = process.env.REACT_APP_API_URL;
 const URL = `http://localhost:3000/games`;
@@ -76,7 +78,7 @@ const GameNotes = ({ game, user }) => {
     <div>
       <Title>Notes</Title>
       <Form onSubmit={handleSubmit}>
-        <Label for="notes">
+        <Label htmlFor="notes">
           Add a note: 
           <TextArea id="notes" rows="3" cols="50" type="text" value={note} onChange={handleChange} />
         </Label>
@@ -87,7 +89,7 @@ const GameNotes = ({ game, user }) => {
         {noteList.map((item) => {
           return (
             <NoteCont>
-              <Li>
+              <Li key={uuidv4()}>
                 <Note>{item}</Note>
                 <DeleteButton onClick={() => handleDelete(item)}>
                   X
@@ -124,6 +126,32 @@ const Label = styled.label`
 `;
 const Input = styled.input`
   margin-top: 5px;
+  position: relative;
+  height: 30px;
+  width: 50px;
+  padding: 5px 5px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: ${({ theme }) => theme.text};
+  border: 2px ${({ theme }) => theme.text} solid;
+  border-radius: 4px;
+  text-transform: uppercase;
+  outline: 0;
+  overflow: hidden;
+  background: none;
+  z-index: 1;
+  cursor: pointer;
+  transition: 0.08s ease-in;
+  -webkit-transition: 0.10s ease-in;
+  &:hover {
+
+    color: ${({ theme }) => theme.body};
+    border: 2px ${({ theme }) => theme.body};
+    background-color: ${({ theme }) => theme.text};
+    transition: all 250ms;
+
+  }
 `;
 
 const TextArea = styled.textarea`
@@ -166,7 +194,7 @@ const DeleteButton = styled.button`
   z-index: 1;
   cursor: pointer;
   transition: 0.08s ease-in;
-  -webkit-transition: 0.08s ease-in;
+  -webkit-transition: 0.10s ease-in;
   text-align: left;
   padding-left: 3px;
   &:before {

@@ -86,8 +86,13 @@ const Container = styled.div`
 const News = styled.div`
 	flex: 1;
 	border-right: 3px solid ${({ theme }) => theme.text};
+	height: 85vh;
+	overflow: scroll;
+	
 `;
 
 const UserInfo = styled.div`
 	flex: 1;
+	height: 85vh;
+	overflow: scroll;
 `;
