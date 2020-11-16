@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addGames } from "../actions";
 import Modal from "./Modal";
-import { v4 as uuidv4 } from 'uuid';
 
 
 const GamesRender = ({ game, showTimePlayed, user }) => {

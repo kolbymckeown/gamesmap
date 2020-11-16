@@ -32,7 +32,7 @@ export const COLORS = {
 	BACKGROUND: {
 		GREY: '#3f4c6b',
 		GRAY: '#303030',
-		WHITE: '#F5F5F5',
+		WHITE: '#F0F0FF',
 		BLACK: '#202020',
 		LIGHTBLUE: '#190061',
 		DARKBLUE: '#3500D3'
