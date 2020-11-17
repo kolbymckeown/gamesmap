@@ -38,7 +38,6 @@ const GameNotes = ({ game, user }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      // TODO: Notes don't load on open, have to click "Add" first...
       body: JSON.stringify({ note, appid: game, userid: user._json.steamid }),
     });
     const json = await res.json();

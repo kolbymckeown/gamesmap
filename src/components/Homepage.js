@@ -2,6 +2,8 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import ReactPlayer from "react-player";
 import FooterImg from "../public/FooterImg.png";
+import StreamerList from "./StreamerList";
+import "./styles/reactPlayer.css";
 
 const DescriptionText =
   "Please Login with the link above, or hang out and watch your favorite streamer!";
@@ -30,7 +32,7 @@ const bouncy = keyframes`
 const Homepage = ({ user, userGames }) => {
   const [stream, setStream] = React.useState("");
   const [twitch, setTwitch] = React.useState(false);
-  const [test, setTest] = React.useState([])
+  const [streamerList, setStreamerList] = React.useState([]);
 
   function handleChange(e) {
     setStream(e.target.value);
@@ -39,8 +41,8 @@ const Homepage = ({ user, userGames }) => {
   function handleSubmit(event) {
     event.preventDefault();
     setTwitch(stream);
-    
-    setTest([...test, stream])
+
+    setStreamerList([...streamerList, stream]);
   }
 
   if (!user.displayName) {
@@ -54,28 +56,58 @@ const Homepage = ({ user, userGames }) => {
         <DescCont>
           <Description>{DescriptionText}</Description>
         </DescCont>
-        <CarouselCont>
-          <FormCont>
-            <Form onSubmit={handleSubmit}>
-              <Label>
-                www.twitch.tv/
-                <InputText type="text" value={stream} onChange={handleChange} />
-              </Label>
-              <Input type="submit" value="Play!" />
-            </Form>
-            <Example style={{ display: twitch && "none" }}>
-              Example: if the full url is 'twitch.tv/<strong>thestream</strong>
-              ', simply type in <strong>thestream</strong> and press play!
-            </Example>
-          </FormCont>
-          {twitch ? (
-            <ReactPlayer url={`twitch.tv/${twitch}`} controls />
-          ) : (
-            <Type>Type in a stream above to load up the live feed!</Type>
-          )}
-        </CarouselCont>
+        <CenterCont>
+          <VidCont>
+            <FormCont>
+              <Form onSubmit={handleSubmit}>
+                <Label>
+                  www.twitch.tv/
+                  <InputText
+                    type="text"
+                    value={stream}
+                    onChange={handleChange}
+                  />
+                </Label>
+                <Input type="submit" value="Play!" />
+              </Form>
+              <Example style={{ display: twitch && "none" }}>
+                Example: if the full url is 'twitch.tv/
+                <strong>thestream</strong>
+                ', simply type in <strong>thestream</strong> and press play!
+              </Example>
+            </FormCont>
+            {twitch ? (
+              <PlayerCont className="player-wrapper">
+                <ReactPlayer
+                  className="react-player"
+                  playing
+                  width="100%"
+                  height="100%"
+                  url={`twitch.tv/${twitch}`}
+                  controls
+                />
+              </PlayerCont>
+            ) : (
+              <Type>Type in a stream above to load up the live feed!</Type>
+            )}
+          </VidCont>
+          <ListCont>
+            {streamerList.length >= 1 && (
+              <StreamerList
+                streamerList={streamerList}
+                setTwitch={setTwitch}
+                twitch={twitch}
+              />
+            )}
+          </ListCont>
+        </CenterCont>
+
         <Footer>
-          <img alt="Twitch, News, Notes and more..." color={twitchPurple} src={FooterImg} />
+          <img
+            alt="Twitch, News, Notes and more..."
+            color={twitchPurple}
+            src={FooterImg}
+          />
         </Footer>
       </WrapperNotLoggedIn>
     );
@@ -92,34 +124,84 @@ const Homepage = ({ user, userGames }) => {
         Feel free to hang out here and watch your favorite <br /> games played
         by your favorite streamers!
       </Intro>
-      <VidCont style={{ marginTop: twitch && "75px" }}>
-        <FormCont>
-          <Form onSubmit={handleSubmit}>
-            <Label>
-              www.twitch.tv/
-              <InputText type="text" value={stream} onChange={handleChange} />
-            </Label>
-            <Input type="submit" value="Play!" />
-          </Form>
-          <Example style={{ display: twitch && "none" }}>
-            Example: if the full url is 'twitch.tv/<strong>thestream</strong>',
-            simply type in <strong>thestream</strong> and press play!
-          </Example>
-        </FormCont>
-        {twitch ? (
-          <ReactPlayer url={`twitch.tv/${twitch}`} controls />
-        ) : (
-          <Type>Type in a stream above to load up the live feed!</Type>
-        )}
-      </VidCont>
+      <CenterCont>
+          <VidCont>
+            <FormCont>
+              <Form onSubmit={handleSubmit}>
+                <Label>
+                  www.twitch.tv/
+                  <InputText
+                    type="text"
+                    value={stream}
+                    onChange={handleChange}
+                  />
+                </Label>
+                <Input type="submit" value="Play!" />
+              </Form>
+              <Example style={{ display: twitch && "none" }}>
+                Example: if the full url is 'twitch.tv/
+                <strong>thestream</strong>
+                ', simply type in <strong>thestream</strong> and press play!
+              </Example>
+            </FormCont>
+            {twitch ? (
+              <PlayerCont className="player-wrapper">
+                <ReactPlayer
+                  className="react-player"
+                  playing
+                  width="100%"
+                  height="100%"
+                  url={`twitch.tv/${twitch}`}
+                  controls
+                />
+              </PlayerCont>
+            ) : (
+              <Type>Type in a stream above to load up the live feed!</Type>
+            )}
+          </VidCont>
+          <ListCont>
+            {streamerList.length >= 1 && (
+              <StreamerList
+                streamerList={streamerList}
+                setTwitch={setTwitch}
+                twitch={twitch}
+              />
+            )}
+          </ListCont>
+        </CenterCont>
       <SignedFooter>
-        <img alt="Twitch, News, Notes and more..." color={twitchPurple} src={FooterImg} />
+        <img
+          alt="Twitch, News, Notes and more..."
+          color={twitchPurple}
+          src={FooterImg}
+        />
       </SignedFooter>
     </Wrapper>
   );
 };
 
 export default Homepage;
+
+const PlayerCont = styled.div``;
+
+const CenterCont = styled.div`
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-evenly; */
+`;
+
+const ListCont = styled.div`
+  position: fixed;
+  right: 10%;
+  top: 40%;
+  text-align: center;
+  @media (max-width: 1200px) {
+    right: 15px;
+  }
+  @media (max-width: 800px) {
+    position: unset;
+  }
+`;
 
 const Footer = styled.div`
   position: fixed;
@@ -135,7 +217,11 @@ const SignedFooter = styled.div`
 `;
 
 const Wrapper = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
   color: ${twitchPurple};
 `;
 
@@ -204,7 +290,7 @@ const Form = styled.form`
 `;
 
 const Label = styled.label`
-	color: ${twitchPurple};
+  color: ${twitchPurple};
 `;
 
 const InputText = styled.input`
@@ -243,11 +329,12 @@ const Input = styled.input`
 `;
 
 const VidCont = styled.div`
-  position: fixed;
+  width: 40vw;
+
+  /* position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  // TODO: VidCont Style for smaller screens
+  transform: translate(-50%, -50%); */
 `;
 
 const CarouselCont = styled.div`

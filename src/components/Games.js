@@ -34,8 +34,9 @@ const Games = ({ user, userGames }) => {
 					{showTimePlayed ? "Hide The Shame" : "Show Time Played"}
 				</Button>
 			</TitleWrap>
+			<GamesCont>
 			<GamesWrap>
-				{userGames.sort().map((game) => {
+				{userGames.map((game) => {
 					return (
 						<GamesRender
 							user={user}
@@ -47,6 +48,7 @@ const Games = ({ user, userGames }) => {
 					);
 				})}
 			</GamesWrap>
+			</GamesCont>
 		</Wrapper>
 	);
 };
@@ -92,33 +94,13 @@ const Button = styled.button`
 	}
 `;
 
-const GamesWrap = styled.ul`
+const GamesCont = styled.div`
 	display: flex;
-	flex-wrap: wrap;
+	justify-content: center;
 `;
 
-// const IndividualGame = styled.li`
-//   display: flex;
-//   flex-direction: column;
-//   max-width: 175px;
-//   max-height: 250px;
-//   justify-content: space-between;
-//   margin-left: 8px;
-//   /* border: 1px solid grey; */
-//   position: relative;
-//   padding-bottom: 50px;
-// `;
-
-// const IndividualP = styled.p`
-//   margin-bottom: 18px;
-// `;
-
-// const IndividualImg = styled.img``;
-
-// const Time = styled.p`
-//   position: absolute;
-//   bottom: 0;
-//   font-style: italic;
-//   font-size: 0.9rem;
-//   left: 10%;
-// `;
+const GamesWrap = styled.ul`
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 50px;
+`;

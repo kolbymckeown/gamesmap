@@ -3,19 +3,13 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addGames } from "../actions";
 import Modal from "./Modal";
-// TODO: Hover Cursor Pointer
-// TODO: Streamers by Game
-// TODO: Grid layout
-// TODO: Sort by time played
 
 const GamesRender = ({ game, showTimePlayed, user }) => {
-  // const [individualGame, setIndividualGame] = React.useState({})
   const [show, setShow] = React.useState(false);
   const dispatch = useDispatch();
 
   const onClickHandler = (game) => {
     openModal();
-    // setIndividualGame(game)
   };
   const openModal = () => {
     setShow(!show);
@@ -26,7 +20,6 @@ const GamesRender = ({ game, showTimePlayed, user }) => {
   return (
     <>
       <IndividualGame onClick={() => onClickHandler(game)} key={name}>
-        {/* TODO: Redux State Management - right now all games being set  */}
         <IndividualP onClick={() => dispatch(addGames(game))}>
           {name}
         </IndividualP>
@@ -60,20 +53,24 @@ const IndividualGame = styled.li`
   max-height: 250px;
   justify-content: space-between;
   margin-left: 8px;
-  /* border: 1px solid grey; */
   position: relative;
   padding-bottom: 50px;
+  cursor: pointer;
+  transition: all 0.30s linear;
+  &:hover {
+    opacity: 0.4;
+  }
 `;
 
 const IndividualP = styled.p`
   margin-bottom: 18px;
+  font-weight: bold;
 `;
 
 const ModalWrap = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  /* bring your own prefixes */
   transform: translate(-50%, -50%);
   z-index: 1000;
 `;

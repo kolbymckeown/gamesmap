@@ -57,7 +57,6 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
             <TextArea id="modalNote" rows="3" cols="30" type="text" value={note} onChange={handleChange} />
           </Label>
           <Input type="submit" value="Add" disabled={!note} />
-          {/* TODO: Background Greyed Out to focus Modal */}
         </Form>
         <Ul>
           {list.map((listItem) => {
