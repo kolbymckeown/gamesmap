@@ -4,6 +4,10 @@
 /server/node_modules
 /client/node_modules
 
+/node_modules
+./node_modules
+node_modules
+
 /.pnp
 .pnp.js
 .env
@@ -30,3 +34,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .vercel
+node_modules
