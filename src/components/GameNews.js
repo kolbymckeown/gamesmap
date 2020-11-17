@@ -83,4 +83,9 @@ const Info = styled.div`
   max-width: 45vw;
   max-height: 400px;
   overflow: auto;
+
+  // TODO: follow below format to style the news articles
+  /* p {
+    color: blue;
+  } */
 `;

@@ -96,7 +96,7 @@ const GameNotes = ({ game, user }) => {
         {note.image && <img height="50px" width="80px" src={note.image} />}
         <Label htmlFor="photo_file">
           Add an image:
-				  <Input type="file" name="photo_file" id="photo_file" onChange={handlePhotoChange} />
+				  <InputPhoto type="file" name="photo_file" id="photo_file" onChange={handlePhotoChange} />
         </Label>
         <Input type="submit" value="Add" disabled={!note} />
 
@@ -107,13 +107,14 @@ const GameNotes = ({ game, user }) => {
             <NoteCont>
               <Li key={uuidv4()}>
                 <Note>{item.text}</Note>
-                {item.image && <img src={item.image} height="50px" width="80px" />}
+                {item.image && <Img src={item.image} />}
                 <DeleteButton onClick={() => handleDelete(item)}>
                   X
                 </DeleteButton>
                 <SocialIcons>
                 <FacebookShareButton style={{ margin: '8px' }} url={URL} quote="placeholder" hashtag="#placeholder"><FacebookIcon round={true} size={25} /></FacebookShareButton>
                 <TwitterShareButton url={URL} quote="placeholder" hashtag="#placeholder"><TwitterIcon round={true} size={25} /></TwitterShareButton>
+                {/* TODO: Once Backend is Hosted - Change URL for Socials to proper URL */}
                 </SocialIcons>
               </Li>
             </NoteCont>
@@ -125,6 +126,17 @@ const GameNotes = ({ game, user }) => {
 };
 
 export default GameNotes;
+
+const Img = styled.img`
+  max-height: 300px;
+  max-width: 500px;
+  transition: 0.5s all linear;
+  margin-top: 8px;
+  &:hover {
+    transform: scale(1.1);
+    margin-left: 50px;
+  }
+`;
 
 const Note = styled.p`
   margin-bottom: 0;
@@ -162,13 +174,21 @@ const Input = styled.input`
   transition: 0.08s ease-in;
   -webkit-transition: 0.10s ease-in;
   &:hover {
-
     color: ${({ theme }) => theme.body};
     border: 2px ${({ theme }) => theme.body};
     background-color: ${({ theme }) => theme.text};
     transition: all 250ms;
-
   }
+`;
+
+const InputPhoto = styled.input`
+  margin-top: 5px;
+  height: 30px;
+  font-weight: 700;
+  font-size: 12px;
+  margin-left: 8px;
+  cursor: pointer;
+  
 `;
 
 const TextArea = styled.textarea`
