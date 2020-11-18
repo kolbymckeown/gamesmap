@@ -6,7 +6,6 @@ import {
   FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon
 } from 'react-share';
 import { v4 as uuidv4 } from 'uuid';
-import ImageUpload from './ImageUpload'
 
 const API_URL = process.env.REACT_APP_API_URL;
 const URL = `http://localhost:3000/games`;
@@ -93,7 +92,7 @@ const GameNotes = ({ game, user }) => {
           Add a note: 
           <TextArea id="notes" rows="3" cols="50" type="text" value={note.text} onChange={handleChange} />
         </Label>
-        {note.image && <img height="50px" width="80px" src={note.image} />}
+        {note.image && <img height="50px" width="80px" src={note.image} alt='' />}
         <Label htmlFor="photo_file">
           Add an image:
 				  <InputPhoto type="file" name="photo_file" id="photo_file" onChange={handlePhotoChange} />
@@ -132,6 +131,8 @@ const Img = styled.img`
   max-width: 500px;
   transition: 0.5s all linear;
   margin-top: 8px;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 2px ${({ theme }) => theme.text};
   &:hover {
     transform: scale(1.1);
     margin-left: 50px;

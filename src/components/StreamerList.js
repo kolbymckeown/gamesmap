@@ -1,20 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 
-const StreamerList = ({ streamerList, twitch, setTwitch }) => {
+const StreamerList = ({ setStream, stream, setTwitch }) => {
 
 	function handleClick(e) {
-		// setTwitch(null)
-		setTwitch(e)
-		console.log(e)
-	}
+    setTwitch(e)
+    setStream(e)
+  }
+  
+  const nonDuplicateStreamers = JSON.parse(localStorage.getItem('my_streamers'))
+  // retrieves the localstorage of streamers
+  console.log(nonDuplicateStreamers)
+ 
 
   return (
     <Wrapper>
       <Title>Recent Streamers</Title>
       <Ul>
-        {streamerList.map((streamer) => {
-          return <Li onClick={() => handleClick(streamer)}>{streamer}</Li>;
+        {nonDuplicateStreamers.map((streamer) => {
+          return <Li key={streamer} onClick={() => handleClick(streamer)}>{streamer}</Li>;
         })}
       </Ul>
     </Wrapper>

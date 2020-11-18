@@ -5,11 +5,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 const {REACT_APP_API_URL} = process.env
 const Modal = ({ game, openModal, show, setShow, user }) => {
-  const [note, setNote] = React.useState("");
+  const [note, setNote] = React.useState({
+    text: '',
+    image: ''
+  });
   const [list, setList] = React.useState([]);
 
   function handleChange(e) {
-    setNote(e.target.value);
+    setNote({text: e.target.value});
   }
 
   async function handleSubmit(event) {
@@ -23,7 +26,7 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
 	})											
 	const json = await res.json()
   setList(json.data); // Stretch - handle no response
-  setNote('') // clears input field once the list is added
+  setNote({ text: "", image: "" }) // clears input field once the list is added
   }
 
   function closeModal() {
@@ -54,18 +57,20 @@ const Modal = ({ game, openModal, show, setShow, user }) => {
         <Form onSubmit={handleSubmit} >
           <Label htmlFor="modalNote">
             Add a note:
-            <TextArea id="modalNote" rows="3" cols="30" type="text" value={note} onChange={handleChange} />
+            <TextArea id="modalNote" rows="3" cols="30" type="text" value={note.text} onChange={handleChange} />
           </Label>
           <Input type="submit" value="Add" disabled={!note} />
         </Form>
         <Ul>
+          {/* {console.log(list)} */}
           {list.map((listItem) => {
+            // console.log(listItem.text)
             if (!listItem) {
               return null;
             }
             return (
               <>
-                <Li key={uuidv4()}>{listItem}</Li>
+                <Li key={uuidv4()}>{listItem.text}</Li>
               </>
             );
           })}
@@ -142,12 +147,14 @@ const FullPage = styled(Link)`
   }
 `;
 
-// const P = styled.p``;
 
 const Img = styled.img`
   border-radius: 5px;
   width: 230px;
   height: 105px;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 2px ${({ theme }) => theme.text};
+  margin-top: 10px;
 `;
 
 const Form = styled.form`

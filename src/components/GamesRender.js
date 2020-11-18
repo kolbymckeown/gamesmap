@@ -49,7 +49,7 @@ export default GamesRender;
 const IndividualGame = styled.li`
   display: flex;
   flex-direction: column;
-  max-width: 175px;
+  max-width: 275px;
   max-height: 250px;
   justify-content: space-between;
   margin-left: 8px;
@@ -75,7 +75,12 @@ const ModalWrap = styled.div`
   z-index: 1000;
 `;
 
-const IndividualImg = styled.img``;
+const IndividualImg = styled.img`
+  height: 100px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 2px 2px ${({ theme }) => theme.text};
+`;
 
 const Time = styled.p`
   position: absolute;

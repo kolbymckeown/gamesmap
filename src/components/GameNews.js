@@ -28,8 +28,7 @@ const GameNews = ({ piece }) => {
   return (
     <Wrapper>
       <Title>{piece.title}</Title>
-      <Button onClick={toggleShow}>{show ? "↑" : `↓`}</Button>
-
+      <Button onClick={toggleShow}>{show ? "\u25B2" : "\u25BC"} </Button>
       <Info style={{ display: show ? "flex" : "none" }}>
         <Link href={piece.url} target="_blank" rel="noopener noreferrer">
           Click Here For The Full Story!
@@ -77,15 +76,18 @@ const Button = styled.button`
 `;
 
 const Info = styled.div`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   flex-direction: column;
   align-items: center;
   max-width: 45vw;
   max-height: 400px;
   overflow: auto;
 
-  // TODO: follow below format to style the news articles
-  /* p {
-    color: blue;
-  } */
+  img {
+    max-width: 500px;
+  }
+
+  a {
+    color: inherit;
+  }
 `;

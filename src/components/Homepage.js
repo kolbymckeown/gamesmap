@@ -32,7 +32,17 @@ const bouncy = keyframes`
 const Homepage = ({ user, userGames }) => {
   const [stream, setStream] = React.useState("");
   const [twitch, setTwitch] = React.useState(false);
-  const [streamerList, setStreamerList] = React.useState([]);
+  const [streamerList, setStreamerList] = React.useState(
+    JSON.parse(localStorage.getItem("my_streamers"))
+  );
+  const nonDuplicateStreamers = [...new Set(streamerList)];
+ 
+  localStorage.setItem("my_streamers", JSON.stringify(nonDuplicateStreamers));
+
+  // console.log(localStorage.my_streamers.length)
+
+  // const array = localStorage.getItem('testing')
+  // console.log(array)
 
   function handleChange(e) {
     setStream(e.target.value);
@@ -92,11 +102,13 @@ const Homepage = ({ user, userGames }) => {
             )}
           </VidCont>
           <ListCont>
-            {streamerList.length >= 1 && (
+            {streamerList && (
               <StreamerList
                 streamerList={streamerList}
                 setTwitch={setTwitch}
                 twitch={twitch}
+                stream={stream}
+                setStream={setStream}
               />
             )}
           </ListCont>
@@ -107,6 +119,7 @@ const Homepage = ({ user, userGames }) => {
             alt="Twitch, News, Notes and more..."
             color={twitchPurple}
             src={FooterImg}
+            height="60vh"
           />
         </Footer>
       </WrapperNotLoggedIn>
@@ -125,50 +138,48 @@ const Homepage = ({ user, userGames }) => {
         by your favorite streamers!
       </Intro>
       <CenterCont>
-          <VidCont>
-            <FormCont>
-              <Form onSubmit={handleSubmit}>
-                <Label>
-                  www.twitch.tv/
-                  <InputText
-                    type="text"
-                    value={stream}
-                    onChange={handleChange}
-                  />
-                </Label>
-                <Input type="submit" value="Play!" />
-              </Form>
-              <Example style={{ display: twitch && "none" }}>
-                Example: if the full url is 'twitch.tv/
-                <strong>thestream</strong>
-                ', simply type in <strong>thestream</strong> and press play!
-              </Example>
-            </FormCont>
-            {twitch ? (
-              <PlayerCont className="player-wrapper">
-                <ReactPlayer
-                  className="react-player"
-                  playing
-                  width="100%"
-                  height="100%"
-                  url={`twitch.tv/${twitch}`}
-                  controls
-                />
-              </PlayerCont>
-            ) : (
-              <Type>Type in a stream above to load up the live feed!</Type>
-            )}
-          </VidCont>
-          <ListCont>
-            {streamerList.length >= 1 && (
-              <StreamerList
-                streamerList={streamerList}
-                setTwitch={setTwitch}
-                twitch={twitch}
+        <VidCont>
+          <FormCont>
+            <Form onSubmit={handleSubmit}>
+              <Label>
+                www.twitch.tv/
+                <InputText type="text" value={stream} onChange={handleChange} />
+              </Label>
+              <Input type="submit" value="Play!" />
+            </Form>
+            <Example style={{ display: twitch && "none" }}>
+              Example: if the full url is 'twitch.tv/
+              <strong>thestream</strong>
+              ', simply type in <strong>thestream</strong> and press play!
+            </Example>
+          </FormCont>
+          {twitch ? (
+            <PlayerCont className="player-wrapper">
+              <ReactPlayer
+                className="react-player"
+                playing
+                width="100%"
+                height="100%"
+                url={`twitch.tv/${twitch}`}
+                controls
               />
-            )}
-          </ListCont>
-        </CenterCont>
+            </PlayerCont>
+          ) : (
+            <Type>Type in a stream above to load up the live feed!</Type>
+          )}
+        </VidCont>
+        <ListCont>
+          {streamerList && (
+            <StreamerList
+              streamerList={streamerList}
+              setTwitch={setTwitch}
+              twitch={twitch}
+              stream={stream}
+              setStream={setStream}
+            />
+          )}
+        </ListCont>
+      </CenterCont>
       <SignedFooter>
         <img
           alt="Twitch, News, Notes and more..."
@@ -335,10 +346,6 @@ const VidCont = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
-`;
-
-const CarouselCont = styled.div`
-  margin-top: 15px;
 `;
 
 const DescCont = styled.div`
