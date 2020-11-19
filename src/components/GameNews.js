@@ -46,6 +46,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   position: relative;
   margin: 18px 8px;
+  
 `;
 
 const Title = styled.h1`

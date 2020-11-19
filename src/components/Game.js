@@ -66,6 +66,7 @@ const Load = styled.div`
 
 const Wrapper = styled.div`
 	margin-left: 8px;
+	
 `;
 
 const H2 = styled.h2`
@@ -88,11 +89,16 @@ const News = styled.div`
 	border-right: 3px solid ${({ theme }) => theme.text};
 	height: 85vh;
 	overflow: scroll;
-	
+	::-webkit-scrollbar {
+    display: none;
+}
 `;
 
 const UserInfo = styled.div`
 	flex: 1;
 	height: 85vh;
 	overflow: scroll;
+	::-webkit-scrollbar {
+    display: none;
+}
 `;
