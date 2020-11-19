@@ -15,7 +15,7 @@ import Homepage from "./components/Homepage";
 import Game from "./components/Game";
 import FourOhFour from "./components/FourOhFour";
 
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
 	const [theme, setTheme] = useState("light");
@@ -23,7 +23,7 @@ function App() {
 	const [userGames, setUserGames] = useState({});
 
 	useEffect(() => {
-		fetch(`${API_URL}/account`, {
+		fetch(`https://gamesmap.herokuapp.com/account`, {
 			method: "GET",
 			credentials: "include",
 			headers: {

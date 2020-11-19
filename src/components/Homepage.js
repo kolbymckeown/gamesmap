@@ -217,7 +217,7 @@ const ListCont = styled.div`
 const Footer = styled.div`
   position: fixed;
   bottom: 15px;
-  font-family: "Roobert", sans-serif;
+  /* font-family: "Roobert", sans-serif; */
 `;
 
 const SignedFooter = styled.div`
